@@ -5,6 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack --port 5000",
+		"kill": "pnpm dlx kill-port 5000",
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome lint .",

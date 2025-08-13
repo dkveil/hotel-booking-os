@@ -2,15 +2,15 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"extends": "./base.json",
 	"compilerOptions": {
-		"jsx": "preserve",
-		"lib": ["dom", "ES2015"],
-		"module": "NodeNext",
 		"allowJs": true,
 		"declaration": false,
 		"declarationMap": false,
 		"incremental": true,
+		"jsx": "preserve",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"module": "esnext",
 		"noEmit": true,
 		"resolveJsonModule": true,
-		"target": "es6"
+		"target": "es5"
 	}
 }

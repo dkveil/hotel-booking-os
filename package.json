@@ -1,29 +1,30 @@
 {
-  "name": "vitest",
-  "private": true,
-  "scripts": {
-    "dev": "turbo run dev",
-    "clean": "turbo run clean",
-    "clean:all": "turbo run clean --all",
-    "build": "turbo run build",
-    "build:watch": "turbo run build --watch",
-    "test": "turbo run test",
-    "test:projects": "vitest run",
-    "test:projects:watch": "vitest --watch",
-    "view-report": "turbo run view-report",
-    "lint": "turbo run lint",
-    "format": "turbo run format",
-    "check": "turbo run check"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.1.4",
-    "@repo/vitest-config": "workspace:*",
-    "turbo": "^2.5.5",
-    "typescript": "5.7.3",
-    "vitest": "^3.2.4"
-  },
-  "packageManager": "pnpm@10.11.0",
-  "engines": {
-    "node": ">=20"
-  }
+	"name": "vitest",
+	"private": true,
+	"scripts": {
+		"dev": "turbo run dev",
+		"kill": "turbo run kill",
+		"clean": "turbo run clean",
+		"clean:all": "turbo run clean --all",
+		"build": "turbo run build",
+		"build:watch": "turbo run build --watch",
+		"test": "turbo run test",
+		"test:projects": "vitest run",
+		"test:projects:watch": "vitest --watch",
+		"view-report": "turbo run view-report",
+		"lint": "turbo run lint",
+		"format": "turbo run format",
+		"check": "turbo run check"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.4",
+		"@repo/vitest-config": "workspace:*",
+		"turbo": "^2.5.5",
+		"typescript": "5.7.3",
+		"vitest": "^3.2.4"
+	},
+	"packageManager": "pnpm@10.14.0",
+	"engines": {
+		"node": ">=20"
+	}
 }
