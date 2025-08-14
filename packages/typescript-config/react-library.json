@@ -1,16 +1,7 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"extends": "./base.json",
-	"compilerOptions": {
-		"jsx": "preserve",
-		"lib": ["dom", "ES2015"],
-		"module": "NodeNext",
-		"allowJs": true,
-		"declaration": false,
-		"declarationMap": false,
-		"incremental": true,
-		"noEmit": true,
-		"resolveJsonModule": true,
-		"target": "es6"
-	}
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
 }

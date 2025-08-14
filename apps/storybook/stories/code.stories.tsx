@@ -1,5 +1,5 @@
 import { Code } from '@repo/ui/code';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Code> = {
   title: 'UI/Code',

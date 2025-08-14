@@ -1,5 +1,5 @@
 import { Card } from '@repo/ui/card';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',

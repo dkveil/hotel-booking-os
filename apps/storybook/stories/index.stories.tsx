@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/button';
 import { Card } from '@repo/ui/card';
 import { Code } from '@repo/ui/code';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
   title: 'UI/Overview',

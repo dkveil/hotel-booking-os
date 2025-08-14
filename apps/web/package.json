@@ -13,19 +13,23 @@
 		"check": "biome check ."
 	},
 	"dependencies": {
-		"@repo/ui": "workspace:*",
-		"next": "^15.1.6",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
+		"next": "15.4.6",
+		"@repo/ui": "workspace:*"
 	},
 	"devDependencies": {
+		"@repo/tailwind-config": "workspace:*",
 		"@repo/typescript-config": "workspace:*",
 		"@repo/vitest-config": "workspace:*",
-		"@types/node": "^22",
-		"@types/react": "19.0.8",
-		"@types/react-dom": "19.0.3",
-		"@vitest/coverage-istanbul": "^3.2.4",
-		"typescript": "5.7.3",
-		"vitest": "^3.2.4"
+		"postcss": "^8.5.6",
+		"@tailwindcss/postcss": "^4.1.11",
+		"tailwindcss": "^4.1.11",
+		"typescript": "^5",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"vitest": "^3.2.4",
+		"@vitest/coverage-istanbul": "^3.2.4"
 	}
 }
