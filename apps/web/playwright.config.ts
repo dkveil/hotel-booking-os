@@ -4,7 +4,7 @@ import { devices } from '@playwright/test';
 export default createConfig({
 	testDir: './e2e',
 	use: {
-		baseURL: 'http://localhost:5000', // port z package.json web app
+		baseURL: 'http://localhost:5000',
 	},
 	webServer: {
 		command: 'pnpm run dev',
@@ -27,7 +27,6 @@ export default createConfig({
 			use: { ...devices['Desktop Firefox'] },
 			dependencies: ['setup'],
 		},
-		// Smoke tests - szybkie testy krytycznych ścieżek
 		{
 			name: 'smoke-chromium',
 			use: { ...devices['Desktop Chrome'] },

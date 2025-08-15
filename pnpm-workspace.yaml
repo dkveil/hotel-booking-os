@@ -1,5 +1,9 @@
 packages:
   - apps/*
+  - packages/config/*
+  - packages/design-system/*
+  - packages/testing/*
+  - packages/ui/*
   - packages/*
 
 onlyBuiltDependencies:
@@ -8,4 +12,5 @@ onlyBuiltDependencies:
   - core-js
   - core-js-pure
   - esbuild
+  - lefthook
   - sharp

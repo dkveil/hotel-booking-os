@@ -11,6 +11,7 @@
 		"lint": "biome lint .",
 		"format": "biome format . --write",
 		"check": "biome check .",
+		"typecheck": "tsc --noEmit",
 		"e2e": "playwright test",
 		"e2e:ui": "playwright test --ui",
 		"e2e:headed": "playwright test --headed",
@@ -21,7 +22,7 @@
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
 		"next": "15.4.6",
-		"@repo/ui": "workspace:*"
+		"@repo/ui-web": "workspace:*"
 	},
 	"devDependencies": {
 		"@repo/tailwind-config": "workspace:*",

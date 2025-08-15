@@ -10,8 +10,9 @@
 		"lint": {
 			"dependsOn": ["^lint"]
 		},
-		"check-types": {
-			"dependsOn": ["^check-types"]
+		"typecheck": {
+			"dependsOn": ["^typecheck"],
+			"inputs": ["$TURBO_DEFAULT$", "tsconfig.json"]
 		},
 		"format": {
 			"dependsOn": ["^format"]

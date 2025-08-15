@@ -1,6 +1,6 @@
-import { Button } from '@repo/ui/button';
-import { Card } from '@repo/ui/card';
-import { Code } from '@repo/ui/code';
+import { Button, } from '@repo/ui-web/button';
+import { Card } from '@repo/ui-web/card';
+import { Code } from '@repo/ui-web/code';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
@@ -20,7 +20,7 @@ export const AllComponents: Story = {
     <div className='space-y-8 p-6'>
       <div>
         <h2 className='text-2xl font-bold mb-4 text-gray-800'>Hotel Booking UI Components</h2>
-        <p className='text-gray-600 mb-8'>A showcase of all available UI components from @repo/ui package.</p>
+        <p className='text-gray-600 mb-8'>A showcase of all available UI components from @repo/ui-web package.</p>
       </div>
 
       <section>

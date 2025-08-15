@@ -14,7 +14,8 @@
 		}
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": ["**/*", "!packages/ui-web/src/styles.css"]
 	},
 	"formatter": {
 		"attributePosition": "multiline",

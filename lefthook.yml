@@ -1,0 +1,100 @@
+min_version: 1.9.0
+
+pre-commit:
+  parallel: true
+  commands:
+    # lint:
+    #   glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
+    #   run: pnpm turbo lint --filter="...[HEAD~1]"
+    #   stage_fixed: true
+    
+    # format:
+    #   glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
+    #   run: pnpm turbo format --filter="...[HEAD~1]"
+    #   stage_fixed: true
+    
+    # typecheck:
+    #   glob: "*.{ts,tsx}"
+    #   run: pnpm turbo typecheck --filter="...[HEAD~1]"
+    
+    check-merge-conflicts:
+      glob: "*"
+      run: |
+        if git diff --cached --name-only | xargs grep -l "^<<<<<<< HEAD" 2>/dev/null; then
+          echo "❌ Merge conflicts detected in staged files!"
+          exit 1
+        fi
+    
+    check-file-size:
+      glob: "*"
+      run: |
+        large_files=$(git diff --cached --name-only | xargs ls -la 2>/dev/null | awk '$5 > 500000 {print $9 " (" $5 " bytes)"}')
+        if [ -n "$large_files" ]; then
+          echo "⚠️  Large files detected:"
+          echo "$large_files"
+          echo "Consider splitting or optimizing these files."
+        fi
+    
+    check-package-json:
+      glob: "package.json"
+      run: |
+        echo "🔍 Checking package.json files..."
+        find . -name "package.json" -not -path "./node_modules/*" | while read -r file; do
+          if ! jq empty "$file" 2>/dev/null; then
+            echo "❌ Invalid JSON in $file"
+            exit 1
+          fi
+        done
+        echo "✅ All package.json files are valid"
+    
+    check-dependencies:
+      run: |
+        echo "🔍 Checking for unused dependencies..."
+        if command -v depcheck >/dev/null 2>&1; then
+          depcheck --ignores="@types/*,@repo/*,lefthook,turbo" --skip-missing
+        else
+          echo "⚠️  depcheck not installed, skipping dependency check"
+        fi
+
+pre-push:
+  parallel: true
+  commands:
+    # test:
+    #   run: pnpm turbo test --filter="...[origin/main]"
+    
+    build:
+      run: pnpm turbo build --filter="...[origin/main]"
+    
+    # e2e-smoke:
+    #   run: pnpm turbo e2e:smoke --filter="...[origin/main]"
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: |
+        commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .{1,50}'
+        commit_msg_file="${1:-$LEFTHOOK_COMMIT_MSG_FILE}"
+        if [ -z "$commit_msg_file" ]; then
+          # Fallback - read directly from .git/COMMIT_EDITMSG
+          commit_msg_file=".git/COMMIT_EDITMSG"
+        fi
+        if [ ! -f "$commit_msg_file" ]; then
+          echo "❌ Cannot find commit message file"
+          exit 1
+        fi
+        if ! grep -qE "$commit_regex" "$commit_msg_file"; then
+          echo "❌ Invalid commit message format!"
+          echo "Use: type(scope): description"
+          echo "Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+          echo "Example: feat(auth): add user login functionality"
+          exit 1
+        fi
+
+source_dir: .lefthook
+source_dir_local: .lefthook-local
+
+skip_output:
+  - meta
+  - execution
+
+colors: true

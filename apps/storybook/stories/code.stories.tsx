@@ -1,5 +1,5 @@
-import { Code } from '@repo/ui/code';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Code } from '@repo/ui-web/code';
 
 const meta: Meta<typeof Code> = {
   title: 'UI/Code',
