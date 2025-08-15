@@ -30,9 +30,18 @@
 			"dependsOn": ["transit", "@repo/vitest-config#build"],
 			"outputs": ["coverage.json"]
 		},
+		"e2e": {
+			"dependsOn": ["build"],
+			"inputs": ["e2e/**", "playwright.config.ts"],
+			"outputs": ["playwright-report/**", "test-results/**", "test-results.json"]
+		},
+		"e2e:smoke": {
+			"dependsOn": ["build"],
+			"inputs": ["e2e/**/*.smoke.spec.ts", "playwright.config.ts"],
+			"outputs": ["playwright-report/**", "test-results/**"]
+		},
 		"transit": {
 			"dependsOn": ["^transit"]
 		}
-
 	}
 }

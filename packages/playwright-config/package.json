@@ -1,0 +1,25 @@
+{
+  "name": "@repo/playwright-config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "playwright.config.ts",
+  "exports": {
+    ".": "./playwright.config.js",
+    "./base": "./configs/base.config.js"
+  },
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format . --write",
+    "check": "biome check ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "@playwright/test": "^1.54.2"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
+  }
+}
