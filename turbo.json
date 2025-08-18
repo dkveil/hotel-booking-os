@@ -22,6 +22,9 @@
 		"format": {
 			"dependsOn": ["^format"]
 		},
+		"format:check": {
+			"dependsOn": ["^format:check"]
+		},
 		"dev": {
 			"cache": false,
 			"persistent": true
@@ -56,6 +59,11 @@
 			"dependsOn": ["e2e"],
 			"inputs": ["playwright-report/**"],
 			"outputs": []
+		},
+		"storybook": {
+			"dependsOn": ["^build"],
+			"inputs": ["stories/**", ".storybook/**"],
+			"outputs": ["storybook-static/**"]
 		}
 	}
 }

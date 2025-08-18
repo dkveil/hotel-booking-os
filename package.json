@@ -22,7 +22,8 @@
 		"format": "turbo run format",
 		"check": "turbo run check",
 		"typecheck": "turbo run typecheck",
-		"prepare": "lefthook install"
+		"prepare": "lefthook install",
+		"format:check": "turbo run format:check"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.4",

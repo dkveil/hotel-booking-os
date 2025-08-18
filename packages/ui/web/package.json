@@ -25,7 +25,8 @@
 		"build": "pnpm run build:styles && pnpm run build:components",
 		"dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
 		"dev:components": "tsc --watch",
-		"dev": "pnpm run dev:styles & pnpm run dev:components"
+		"dev": "pnpm run dev:styles & pnpm run dev:components",
+		"format:check": "biome format . --check"
 	},
 	"peerDependencies": {
 		"react": "19.1.0"
