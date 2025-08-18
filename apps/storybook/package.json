@@ -17,8 +17,8 @@
 	},
 	"dependencies": {
 		"@repo/ui-web": "workspace:*",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
 		"tsx": "^4.20.4"
 	},
 	"devDependencies": {

@@ -1,4 +1,4 @@
-import { Button } from '../../../packages/ui/ui-web/dist/button';
+import { Button } from '@repo/ui-web/button';
 
 export default function Home() {
   return (

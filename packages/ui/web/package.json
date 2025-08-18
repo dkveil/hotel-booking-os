@@ -10,9 +10,10 @@
     "dist"
   ],
   "exports": {
-		"./styles.css": "./dist/index.css",
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/index.css",
     "./*": "./dist/*.js"
-	},
+  },
 	"scripts": {
 		"lint": "biome lint .",
 		"format": "biome format . --write",
@@ -25,7 +26,7 @@
     "dev:components": "tsc --watch"
 	},
 	"peerDependencies": {
-    "react": "^19"
+    "react": "19.1.0"
   },
 	"devDependencies": {
 		"@repo/tailwind-config": "workspace:*",
@@ -41,7 +42,7 @@
 		"autoprefixer": "^10.4.21"
 	},
 	"dependencies": {
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react": "19.1.0",
+		"react-dom": "19.1.0"
 	}
 }
