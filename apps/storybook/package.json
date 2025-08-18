@@ -13,7 +13,8 @@
 		"format": "biome format ./stories/*.stories.tsx --write",
 		"check": "biome check ./stories/*.stories.tsx",
 		"doctor": "tsx scripts/manage-logs.ts && storybook doctor",
-		"archive-logs": "tsx scripts/manage-logs.ts"
+		"archive-logs": "tsx scripts/manage-logs.ts",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@repo/ui-web": "workspace:*",

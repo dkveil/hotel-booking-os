@@ -3,19 +3,19 @@ min_version: 1.9.0
 pre-commit:
   parallel: true
   commands:
-    # lint:
-    #   glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
-    #   run: pnpm turbo lint --filter="...[HEAD~1]"
-    #   stage_fixed: true
+    lint:
+      glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
+      run: pnpm turbo lint --filter="...[HEAD~1]"
+      stage_fixed: true
     
-    # format:
-    #   glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
-    #   run: pnpm turbo format --filter="...[HEAD~1]"
-    #   stage_fixed: true
+    format:
+      glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
+      run: pnpm turbo format --filter="...[HEAD~1]"
+      stage_fixed: true
     
-    # typecheck:
-    #   glob: "*.{ts,tsx}"
-    #   run: pnpm turbo typecheck --filter="...[HEAD~1]"
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: pnpm turbo typecheck --filter="...[HEAD~1]"
     
     check-merge-conflicts:
       glob: "*"
@@ -59,14 +59,14 @@ pre-commit:
 pre-push:
   parallel: true
   commands:
-    # test:
-    #   run: pnpm turbo test --filter="...[origin/main]"
+    test:
+      run: pnpm turbo test --filter="...[origin/main]"
     
     build:
       run: pnpm turbo build --filter="...[origin/main]"
     
-    # e2e-smoke:
-    #   run: pnpm turbo e2e:smoke --filter="...[origin/main]"
+    e2e-smoke:
+      run: pnpm turbo e2e:smoke --filter="...[origin/main]"
 
 commit-msg:
   commands:
@@ -75,7 +75,6 @@ commit-msg:
         commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .{1,50}'
         commit_msg_file="${1:-$LEFTHOOK_COMMIT_MSG_FILE}"
         if [ -z "$commit_msg_file" ]; then
-          # Fallback - read directly from .git/COMMIT_EDITMSG
           commit_msg_file=".git/COMMIT_EDITMSG"
         fi
         if [ ! -f "$commit_msg_file" ]; then

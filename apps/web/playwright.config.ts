@@ -23,7 +23,7 @@ export default createConfig({
 			dependencies: ['setup'],
 		},
 		{
-			name: 'firefox', 
+			name: 'firefox',
 			use: { ...devices['Desktop Firefox'] },
 			dependencies: ['setup'],
 		},
@@ -35,4 +35,3 @@ export default createConfig({
 		},
 	],
 });
-
