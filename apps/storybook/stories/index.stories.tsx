@@ -1,6 +1,4 @@
-import { Button } from '@repo/ui-web/button';
-import { Card } from '@repo/ui-web/card';
-import { Code } from '@repo/ui-web/code';
+import { Button, Card, Code } from '@repo/ui-web';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {

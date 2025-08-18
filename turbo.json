@@ -6,8 +6,8 @@
 			"dependsOn": ["^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": [
-				".next/**", 
-				"!.next/cache/**", 
+				".next/**",
+				"!.next/cache/**",
 				"dist/**",
 				"storybook-static/**"
 			]
@@ -16,7 +16,7 @@
 			"dependsOn": ["^lint"]
 		},
 		"typecheck": {
-			"dependsOn": ["^typecheck"],
+			"dependsOn": ["^build", "^typecheck"],
 			"inputs": ["$TURBO_DEFAULT$", "tsconfig.json"]
 		},
 		"format": {
@@ -42,7 +42,11 @@
 		"e2e": {
 			"dependsOn": ["build"],
 			"inputs": ["e2e/**", "playwright.config.ts"],
-			"outputs": ["playwright-report/**", "test-results/**", "test-results.json"]
+			"outputs": [
+				"playwright-report/**",
+				"test-results/**",
+				"test-results.json"
+			]
 		},
 		"e2e:smoke": {
 			"dependsOn": ["build"],

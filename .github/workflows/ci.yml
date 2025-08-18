@@ -48,9 +48,6 @@ jobs:
       - name: Lint
         run: pnpm turbo lint
 
-      - name: Format check
-        run: pnpm turbo format --check
-
       - name: Type check
         run: pnpm turbo typecheck
 

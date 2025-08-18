@@ -18,7 +18,8 @@
 		"lint": "biome lint .",
 		"format": "biome format . --write",
 		"check": "biome check .",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"format:check": "biome format . --check"
 	},
 	"dependencies": {
 		"vitest": "^3.2.4"
