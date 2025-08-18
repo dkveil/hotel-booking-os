@@ -1,5 +1,5 @@
-import { createConfig } from '@repo/playwright-config/base';
 import { devices } from '@playwright/test';
+import { createConfig } from '@repo/playwright-config/base';
 
 export default createConfig({
 	testDir: './e2e',

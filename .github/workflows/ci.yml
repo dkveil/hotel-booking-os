@@ -129,8 +129,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('apps/web/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
       - name: Install Playwright browsers
-        run: pnpm --filter=web playwright install chromium
+        run: pnpm --filter=web exec playwright install --with-deps
 
       - name: Build web app
         run: pnpm turbo build --filter=web
