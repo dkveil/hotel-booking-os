@@ -1,0 +1,74 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":maintainLockFilesWeekly",
+    ":semanticPrefixFixDepsChoreOthers"
+  ],
+  "timezone": "Europe/Warsaw",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "assigneesFromCodeOwners": true,
+  "reviewersFromCodeOwners": true,
+  "packageRules": [
+    {
+      "description": "Group all non-major updates together",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch"
+    },
+    {
+      "description": "Separate major updates",
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "major-update"]
+    },
+    {
+      "description": "Auto-merge patch updates",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Workspace packages - ignore",
+      "matchPackagePatterns": ["^@repo/"],
+      "enabled": false
+    },
+    {
+      "description": "Group TypeScript and related packages",
+      "matchPackageNames": ["typescript", "@types/node", "@types/react", "@types/react-dom"],
+      "groupName": "TypeScript",
+      "groupSlug": "typescript"
+    },
+    {
+      "description": "Group React packages",
+      "matchPackageNames": ["react", "react-dom"],
+      "groupName": "React",
+      "groupSlug": "react"
+    },
+    {
+      "description": "Group Next.js packages", 
+      "matchPackageNames": ["next", "@next/bundle-analyzer"],
+      "groupName": "Next.js",
+      "groupSlug": "nextjs"
+    },
+    {
+      "description": "Group Playwright packages",
+      "matchPackageNames": ["@playwright/test", "playwright"],
+      "groupName": "Playwright",
+      "groupSlug": "playwright"
+    },
+    {
+      "description": "Group Biome packages",
+      "matchPackageNames": ["@biomejs/biome"],
+      "groupName": "Biome",
+      "groupSlug": "biome"
+    },
+    {
+      "description": "Group Turbo packages",
+      "matchPackageNames": ["turbo"],
+      "groupName": "Turbo",
+      "groupSlug": "turbo"
+    }
+  ]
+}
