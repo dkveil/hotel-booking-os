@@ -23,10 +23,15 @@
 		"check": "turbo run check",
 		"typecheck": "turbo run typecheck",
 		"prepare": "lefthook install",
-		"format:check": "turbo run format:check"
+		"format:check": "turbo run format:check",
+		"changeset": "changeset",
+		"changeset:version": "changeset version",
+		"changeset:publish": "changeset publish",
+		"changeset:status": "changeset status"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.4",
+		"@changesets/cli": "^2.29.6",
 		"@repo/playwright-config": "workspace:*",
 		"@repo/vitest-config": "workspace:*",
 		"lefthook": "^1.9.2",
