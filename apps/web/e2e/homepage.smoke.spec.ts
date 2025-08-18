@@ -4,5 +4,7 @@ test('homepage loads @smoke', async ({ page }) => {
 	await page.goto('/');
 
 	await expect(page.locator('h1')).toContainText('Hello World');
-	await expect(page.locator('button')).toContainText('Click me test');
+	await expect(
+		page.getByRole('button', { name: 'Click me test' })
+	).toContainText('Click me test');
 });

@@ -57,8 +57,19 @@ pre-commit:
         fi
 
 pre-push:
-  parallel: true
   commands:
+    smart-clean:
+      run: |
+        echo "🔍 Checking for corrupted cache..."
+        if [ -d "apps/web/.next" ] && [ ! -f "apps/web/.next/BUILD_ID" ]; then
+          echo "🧹 Cleaning corrupted Next.js cache..."
+          rm -rf apps/web/.next
+        fi
+        if [ -d "apps/storybook/storybook-static" ] && [ ! -f "apps/storybook/storybook-static/index.html" ]; then
+          echo "🧹 Cleaning corrupted Storybook cache..."
+          rm -rf apps/storybook/storybook-static
+        fi
+    
     test:
       run: pnpm turbo test --filter="...[origin/main]"
     

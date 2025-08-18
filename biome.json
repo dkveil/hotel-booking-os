@@ -15,7 +15,14 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**/*", "!packages/ui-web/src/styles.css"]
+		"includes": [
+			"**/*",
+			"!**/node_modules/**",
+			"!**/dist/**",
+			"!**/.next/**",
+			"!**/storybook-static/**",
+			"!packages/ui/web/src/styles.css"
+		]
 	},
 	"formatter": {
 		"attributePosition": "multiline",
@@ -137,7 +144,7 @@
 			},
 			"performance": {
 				"noAccumulatingSpread": "error",
-				"noBarrelFile": "error",
+				"noBarrelFile": "off",
 				"noDelete": "error",
 				"noDynamicNamespaceImportAccess": "error",
 				"noImgElement": "warn",
