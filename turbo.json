@@ -26,6 +26,7 @@
 			"dependsOn": ["^format:check"]
 		},
 		"dev": {
+			"dependsOn": ["^build"],
 			"cache": false,
 			"persistent": true
 		},

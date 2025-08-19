@@ -139,7 +139,6 @@
 				"useValidForDirection": "error"
 			},
 			"nursery": {
-				"noAwaitInLoop": "error",
 				"noFloatingPromises": "error"
 			},
 			"performance": {

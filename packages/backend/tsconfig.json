@@ -1,0 +1,23 @@
+{
+  "extends": "@repo/typescript-config/nestjs.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": false,
+    "incremental": true,
+    "composite": true,
+    "lib": ["es2023", "dom"],
+    "types": ["node"],
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "baseUrl": ".",
+    "paths": {
+      "rxjs": ["../../node_modules/rxjs"],
+      "ioredis": ["../../node_modules/ioredis"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
+}
