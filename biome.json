@@ -17,10 +17,10 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**/*",
-			"!**/node_modules/**",
-			"!**/dist/**",
-			"!**/.next/**",
-			"!**/storybook-static/**",
+			"!**/node_modules",
+			"!**/dist",
+			"!**/.next",
+			"!**/storybook-static",
 			"!packages/ui/web/src/styles.css"
 		]
 	},
@@ -51,6 +51,9 @@
 		},
 		"linter": {
 			"enabled": true
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
 		}
 	},
 	"json": {

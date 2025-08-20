@@ -1,2 +1,2 @@
-export * from './config.module';
-export * from './config.service';
+export { ConfigModule } from './config.module';
+export { ConfigService } from './config.service';

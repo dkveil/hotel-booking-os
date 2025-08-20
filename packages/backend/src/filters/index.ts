@@ -1,1 +1,1 @@
-export * from './zod.filter';
+export { ZodFilter } from './zod.filter';

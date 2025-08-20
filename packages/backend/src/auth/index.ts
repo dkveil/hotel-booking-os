@@ -1,2 +1,2 @@
-export * from './inter-service.guard';
-export * from './jwt-auth.guard';
+export { InterServiceGuard } from './inter-service.guard';
+export { JwtAuthGuard } from './jwt-auth.guard';

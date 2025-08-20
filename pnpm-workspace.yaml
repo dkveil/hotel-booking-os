@@ -7,10 +7,15 @@ packages:
   - packages/*
 
 onlyBuiltDependencies:
+  - '@nestjs/core'
   - '@parcel/watcher'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@scarf/scarf'
   - '@tailwindcss/oxide'
   - core-js
   - core-js-pure
   - esbuild
   - lefthook
+  - prisma
   - sharp

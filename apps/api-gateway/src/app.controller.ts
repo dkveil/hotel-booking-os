@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+// biome-ignore lint/style/useImportType: AppService is used for dependency injection
 import { AppService } from './app.service';
 
 @Controller()

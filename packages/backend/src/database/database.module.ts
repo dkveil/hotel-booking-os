@@ -4,8 +4,8 @@ import { ConfigModule } from '../config';
 import { DatabaseService } from './database.service';
 
 @Module({
-  imports: [ConfigModule],
-  exports: [DatabaseService],
-  providers: [DatabaseService],
+	imports: [ConfigModule],
+	exports: [DatabaseService],
+	providers: [DatabaseService],
 })
 export class DatabaseModule {}

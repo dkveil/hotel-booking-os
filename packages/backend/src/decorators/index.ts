@@ -1,1 +1,1 @@
-export * from './current-user.decorator';
+export { CurrentUser, getCurrentUserByContext } from './current-user.decorator';

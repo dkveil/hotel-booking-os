@@ -1,85 +1,85 @@
 {
-  "name": "@repo/backend",
-  "version": "1.0.0",
-  "description": "Shared backend utilities and modules for Hotel Booking system",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./auth": {
-      "types": "./dist/auth/index.d.ts",
-      "default": "./dist/auth/index.js"
-    },
-    "./config": {
-      "types": "./dist/config/index.d.ts",
-      "default": "./dist/config/index.js"
-    },
-    "./database": {
-      "types": "./dist/database/index.d.ts",
-      "default": "./dist/database/index.js"
-    },
-    "./decorators": {
-      "types": "./dist/decorators/index.d.ts",
-      "default": "./dist/decorators/index.js"
-    },
-    "./dto": {
-      "types": "./dist/dto/index.d.ts",
-      "default": "./dist/dto/index.js"
-    },
-    "./filters": {
-      "types": "./dist/filters/index.d.ts",
-      "default": "./dist/filters/index.js"
-    },
-    "./pipes": {
-      "types": "./dist/pipes/index.d.ts",
-      "default": "./dist/pipes/index.js"
-    },
-    "./redis": {
-      "types": "./dist/redis/index.d.ts",
-      "default": "./dist/redis/index.js"
-    }
-  },
-  "scripts": {
-    "dev": "pnpm build --watch",
-    "build": "tsc -b -v",
-    "clean": "rm -rf dist",
-    "typecheck": "tsc --noEmit",
-    "lint": "biome lint .",
-    "format": "biome format --write .",
-    "db:generate": "prisma generate --schema=src/database/schema/prisma/schema.prisma",
-    "db:push": "prisma db push --schema=src/database/schema/prisma/schema.prisma",
-    "db:migrate": "prisma migrate dev --schema=src/database/schema/prisma/schema.prisma"
-  },
-  "dependencies": {
-    "@nestjs/common": "^11.1.5",
-    "@nestjs/config": "^4.0.0",
-    "@nestjs/core": "^11.1.5",
-    "@nestjs/jwt": "^11.0.0",
-    "@nestjs/microservices": "^11.1.5",
-    "@nestjs/passport": "^11.0.5",
-    "@nestjs/swagger": "^11.2.0",
-    "@prisma/client": "^6.3.1",
-    "amqp-connection-manager": "^4.1.14",
-    "amqplib": "^0.10.8",
-    "bcryptjs": "^3.0.2",
-    "ioredis": "^5.7.0",
-    "nestjs-zod": "^4.2.1",
-    "passport-jwt": "^4.0.1",
-    "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2",
-    "zod": "^3.24.1"
-  },
-  "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
-    "@repo/vitest-config": "workspace:*",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^22.13.1",
-    "@types/passport-jwt": "^4.0.1",
-    "prisma": "^6.3.1",
-    "typescript": "5.7.3"
-  },
-  "packageManager": "pnpm@10.14.0"
+	"name": "@repo/backend",
+	"version": "1.0.0",
+	"description": "Shared backend utilities and modules for Hotel Booking system",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./auth": {
+			"types": "./dist/auth/index.d.ts",
+			"default": "./dist/auth/index.js"
+		},
+		"./config": {
+			"types": "./dist/config/index.d.ts",
+			"default": "./dist/config/index.js"
+		},
+		"./database": {
+			"types": "./dist/database/index.d.ts",
+			"default": "./dist/database/index.js"
+		},
+		"./decorators": {
+			"types": "./dist/decorators/index.d.ts",
+			"default": "./dist/decorators/index.js"
+		},
+		"./dto": {
+			"types": "./dist/dto/index.d.ts",
+			"default": "./dist/dto/index.js"
+		},
+		"./filters": {
+			"types": "./dist/filters/index.d.ts",
+			"default": "./dist/filters/index.js"
+		},
+		"./pipes": {
+			"types": "./dist/pipes/index.d.ts",
+			"default": "./dist/pipes/index.js"
+		},
+		"./redis": {
+			"types": "./dist/redis/index.d.ts",
+			"default": "./dist/redis/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -b",
+		"dev": "tsc -b -w",
+		"clean": "rm -rf dist",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome lint .",
+		"format": "biome format --write .",
+		"db:generate": "prisma generate --schema=src/database/schema/prisma/schema.prisma",
+		"db:push": "prisma db push --schema=src/database/schema/prisma/schema.prisma",
+		"db:migrate": "prisma migrate dev --schema=src/database/schema/prisma/schema.prisma"
+	},
+	"dependencies": {
+		"@nestjs/common": "^11.1.5",
+		"@nestjs/config": "^4.0.0",
+		"@nestjs/core": "^11.1.5",
+		"@nestjs/jwt": "^11.0.0",
+		"@nestjs/microservices": "^11.1.5",
+		"@nestjs/passport": "^11.0.5",
+		"@nestjs/swagger": "^11.2.0",
+		"@prisma/client": "^6.3.1",
+		"amqp-connection-manager": "^4.1.14",
+		"amqplib": "^0.10.8",
+		"bcryptjs": "^3.0.2",
+		"ioredis": "^5.7.0",
+		"nestjs-zod": "^4.2.1",
+		"passport-jwt": "^4.0.1",
+		"reflect-metadata": "^0.2.2",
+		"rxjs": "^7.8.2",
+		"zod": "^3.24.1"
+	},
+	"devDependencies": {
+		"@repo/typescript-config": "workspace:*",
+		"@repo/vitest-config": "workspace:*",
+		"@types/bcryptjs": "^2.4.6",
+		"@types/node": "^22.13.1",
+		"@types/passport-jwt": "^4.0.1",
+		"prisma": "^6.3.1",
+		"typescript": "5.7.3"
+	},
+	"packageManager": "pnpm@10.14.0"
 }

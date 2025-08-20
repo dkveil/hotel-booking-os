@@ -1,1 +1,6 @@
-export * from './services';
+export {
+	AUTH_SERVICE,
+	NOTIFICATIONS_SERVICE,
+	PAYMENTS_SERVICE,
+	RESERVATIONS_SERVICE,
+} from './services';
