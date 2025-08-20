@@ -5,6 +5,7 @@ packages:
   - packages/testing/*
   - packages/ui/*
   - packages/*
+  - services/*
 
 onlyBuiltDependencies:
   - '@nestjs/core'
