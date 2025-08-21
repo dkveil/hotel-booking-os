@@ -1,17 +1,16 @@
-import { Controller, Logger, Post, Res, UseGuards } from '@nestjs/common';
+import { Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CurrentUser } from '@repo/backend';
 import type { Response } from 'express';
 
-import type { AuthService } from './auth.service';
+// biome-ignore lint/style/useImportType: <explanation>
+import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import type { User } from './users/entities';
 
 @Controller('auth')
 export class AuthController {
-	private readonly logger = new Logger(AuthController.name);
-
 	constructor(private readonly authService: AuthService) {}
 
 	@Post('login')
@@ -26,7 +25,7 @@ export class AuthController {
 
 	@UseGuards(JwtAuthGuard)
 	@MessagePattern('authenticate')
-	async authenticate(@Payload() payload: any) {
+	async authenticate(@Payload() payload: Record<string, unknown>) {
 		return payload.user;
 	}
 }

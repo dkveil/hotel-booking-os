@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { AbstractRepository, type DatabaseService } from '@repo/backend';
+import { AbstractRepository } from '@repo/backend';
 
 import type { User } from './entities';
 

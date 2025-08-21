@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import type { ConfigService } from '@repo/backend';
+// biome-ignore lint/style/useImportType: <explanation>
+import { ConfigService } from '@repo/backend';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import type { TokenPayload } from '../interfaces/token-payload.interface';
-import type { UsersService } from '../users/users.service';
+// biome-ignore lint/style/useImportType: <explanation>
+import { TokenPayload } from '../interfaces/token-payload.interface';
+// biome-ignore lint/style/useImportType: <explanation>
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {

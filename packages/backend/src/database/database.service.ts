@@ -14,10 +14,11 @@ export class DatabaseService
 	implements OnModuleInit, OnModuleDestroy
 {
 	private readonly logger = new Logger(DatabaseService.name);
+	private readonly configService: ConfigService;
 
 	constructor(configService: ConfigService) {
 		super({
-			datasourceUrl: configService.databaseUrl,
+			datasourceUrl: configService.get<string>('DATABASE_URL'),
 			log: [
 				{ emit: 'event', level: 'query' },
 				{ emit: 'event', level: 'error' },
@@ -87,13 +88,46 @@ export class DatabaseService
 
 	async onModuleInit() {
 		this.log('info', 'Initializing database connection...');
-		try {
-			await this.$connect();
-			this.log('info', 'Database connection established');
-		} catch (error) {
-			this.log('error', `Failed to connect to database: ${error.message}`);
-			throw error;
+
+		const databaseUrl = this.configService.get<string>('DATABASE_URL');
+		if (!databaseUrl) {
+			this.log(
+				'warn',
+				'DATABASE_URL not configured - running without database'
+			);
+			return;
 		}
+
+		const maxRetries = 5;
+		let retries = 0;
+
+		while (retries < maxRetries) {
+			try {
+				await this.$connect();
+				this.log('info', 'Database connection established');
+				return;
+			} catch (error) {
+				retries++;
+				this.log(
+					'warn',
+					`Database connection attempt ${retries}/${maxRetries} failed: ${error.message}`
+				);
+
+				if (retries < maxRetries) {
+					this.log('info', `Retrying in ${retries * 2} seconds...`);
+					await new Promise((resolve) => setTimeout(resolve, retries * 2000));
+				}
+			}
+		}
+
+		this.log(
+			'error',
+			`Failed to connect to database after ${maxRetries} attempts`
+		);
+		this.log(
+			'warn',
+			'Application will continue without database functionality'
+		);
 	}
 
 	async onModuleDestroy() {

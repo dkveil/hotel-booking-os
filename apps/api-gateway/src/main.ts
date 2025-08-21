@@ -17,7 +17,7 @@ async function bootstrap() {
 	const isProduction = configService.get('NODE_ENV') === 'production';
 
 	const origin = configService.get('CORS_ORIGIN').split(',');
-	const port = Number(configService.get('GATEWAY_PORT', 6000));
+	const port = Number(configService.get('GATEWAY_PORT', 8080));
 
 	app.useGlobalFilters(new ZodFilter());
 

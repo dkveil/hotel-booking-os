@@ -4,6 +4,10 @@ export const envSchema = z.object({
 	NODE_ENV: z
 		.enum(['development', 'production', 'test'])
 		.default('development'),
-	GATEWAY_PORT: z.coerce.number().default(6000),
 	CORS_ORIGIN: z.string().default('*'),
+	GATEWAY_PORT: z.coerce.number().default(8080),
+	AUTH_PORT: z.coerce.number().default(6000),
+	DATABASE_URL: z.string(),
+	JWT_SECRET: z.string(),
+	JWT_EXPIRATION_TIME: z.coerce.number().default(3600),
 });

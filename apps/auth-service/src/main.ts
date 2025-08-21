@@ -1,7 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import type { RmqOptions } from '@nestjs/microservices';
-import { Transport } from '@nestjs/microservices';
-import type { RmqUrl } from '@nestjs/microservices/external/rmq-url.interface';
 import { ConfigService, ZodFilter } from '@repo/backend';
 import cookieParser from 'cookie-parser';
 
@@ -12,19 +9,20 @@ async function bootstrap() {
 
 	const configService = app.get(ConfigService);
 
-	app.connectMicroservice<RmqOptions>({
-		transport: Transport.RMQ,
-		options: {
-			urls: [configService.get('RABBITMQ_URL') as RmqUrl],
-			noAck: false,
-			queue: 'auth',
-		},
-	});
+	// INFO: RabbitMQ is a option I can use in the future
+	// app.connectMicroservice<RmqOptions>({
+	// 	transport: Transport.RMQ,
+	// 	options: {
+	// 		urls: [configService.get('RABBITMQ_URL') as RmqUrl],
+	// 		noAck: false,
+	// 		queue: 'auth',
+	// 	},
+	// });
 
 	app.use(cookieParser());
 
 	const isProduction = configService.get('NODE_ENV') === 'production';
-	const port = Number(configService.get('AUTH_PORT', 3158));
+	const port = Number(configService.get('AUTH_PORT', 6000));
 
 	app.useGlobalFilters(new ZodFilter());
 

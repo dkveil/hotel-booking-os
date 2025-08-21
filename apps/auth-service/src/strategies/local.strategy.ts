@@ -2,8 +2,10 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
-import type { User } from '../users/entities/';
-import type { UsersService } from '../users/users.service';
+// biome-ignore lint/style/useImportType: <explanation>
+import { User } from '../users/entities/';
+// biome-ignore lint/style/useImportType: <explanation>
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {

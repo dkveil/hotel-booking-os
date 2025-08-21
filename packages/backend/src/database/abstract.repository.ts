@@ -1,6 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 
-import type { DatabaseService } from './database.service';
+// biome-ignore lint/style/useImportType: <explanation>
+import { DatabaseService } from './database.service';
 import type {
 	CreateOptions,
 	FilterQuery,
