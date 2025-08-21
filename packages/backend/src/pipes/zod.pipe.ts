@@ -6,7 +6,7 @@ import type { Schema } from 'zod';
 export class ZodPipe implements PipeTransform {
 	constructor(private readonly schema: Schema) {}
 
-	transform(value: any, _metadata: ArgumentMetadata) {
+	transform(value: unknown, _metadata: ArgumentMetadata) {
 		return this.schema.parse(value);
 	}
 }

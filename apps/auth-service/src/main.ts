@@ -3,7 +3,7 @@ import type { RmqOptions } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices';
 import type { RmqUrl } from '@nestjs/microservices/external/rmq-url.interface';
 import { ConfigService, ZodFilter } from '@repo/backend';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 import { AuthModule } from './auth.module';
 

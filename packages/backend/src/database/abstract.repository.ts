@@ -6,6 +6,7 @@ import type {
 	FilterQuery,
 	FindManyOptions,
 	FindOneOptions,
+	IncludeOptions,
 	IRepository,
 	UpdateOptions,
 } from './interfaces/';
@@ -36,7 +37,7 @@ export abstract class AbstractRepository<T extends { id: string }>
 		return created;
 	}
 
-	async findAll(include?: any): Promise<T[]> {
+	async findAll(include?: IncludeOptions): Promise<T[]> {
 		const found = await this.model.findMany({ include });
 
 		this.db.log('info', `${this.repositoryName}: Entities found`, found);

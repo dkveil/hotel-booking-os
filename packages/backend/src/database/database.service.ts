@@ -15,7 +15,7 @@ export class DatabaseService
 {
 	private readonly logger = new Logger(DatabaseService.name);
 
-	constructor(private readonly configService: ConfigService) {
+	constructor(configService: ConfigService) {
 		super({
 			datasourceUrl: configService.databaseUrl,
 			log: [
@@ -62,7 +62,7 @@ export class DatabaseService
 		});
 	}
 
-	log(eventType: Prisma.LogLevel, message: string, data?: any) {
+	log(eventType: Prisma.LogLevel, message: string, data?: unknown) {
 		const formattedMessage = data
 			? `${message} ${JSON.stringify(data, null, 2)}`
 			: message;

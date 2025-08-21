@@ -3,6 +3,7 @@ export type {
 	FilterQuery,
 	FindManyOptions,
 	FindOneOptions,
+	IncludeOptions,
 	IRepository,
 	Pagination,
 	UpdateOptions,

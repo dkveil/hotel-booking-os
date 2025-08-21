@@ -6,22 +6,33 @@ import { ConfigService as NestConfigService } from '@nestjs/config';
 @Injectable()
 export class ConfigService extends NestConfigService {
 	get databaseUrl(): string {
-		return this.get<string>('DATABASE_URL')!;
+		const url = this.get<string>('DATABASE_URL');
+		if (!url) {
+			throw new Error('DATABASE_URL is required');
+		}
+		return url;
 	}
 
 	get redisConnectData() {
-		return {
-			host: this.get<string>('REDIS_HOST')!,
-			port: this.get<number>('REDIS_PORT')!,
-			password: this.get<string>('REDIS_PASSWORD')!,
-		};
+		const host = this.get<string>('REDIS_HOST');
+		const port = this.get<number>('REDIS_PORT');
+		const password = this.get<string>('REDIS_PASSWORD');
+
+		if (!(host && port && password)) {
+			throw new Error('Redis configuration is incomplete');
+		}
+
+		return { host, port, password };
 	}
 
 	get useRedis(): boolean {
 		return this.get<string>('USE_REDIS') === 'true';
 	}
 
-	createSignedMessage(payload: any, serviceName?: string): any {
+	createSignedMessage(
+		payload: Record<string, unknown>,
+		serviceName?: string
+	): Record<string, unknown> {
 		const serviceToken = this.get('INTER_SERVICE_SECRET');
 		const timestamp = Date.now();
 
@@ -55,7 +66,7 @@ export class ConfigService extends NestConfigService {
 	}
 
 	verifySignature(
-		payload: any,
+		payload: Record<string, unknown>,
 		timestamp: number,
 		receivedSignature: string,
 		serviceName?: string

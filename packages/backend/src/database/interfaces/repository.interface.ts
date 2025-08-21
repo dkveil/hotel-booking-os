@@ -1,7 +1,9 @@
 import type { DatabaseService } from '../database.service';
 
+export type IncludeOptions = Record<string, boolean | Record<string, boolean>>;
+
 export type FindManyOptions<T> = {
-	filterQuery?: Partial<Record<keyof T, any>>;
+	filterQuery?: Partial<Record<keyof T, string | number | boolean | Date>>;
 	pagination?: {
 		skip?: number;
 		take?: number;
@@ -9,23 +11,23 @@ export type FindManyOptions<T> = {
 	orderBy?: {
 		[key: string]: 'asc' | 'desc';
 	};
-	include?: any;
+	include?: IncludeOptions;
 };
 
 export type FindOneOptions<T> = {
-	filterQuery: Partial<Record<keyof T, any>>;
-	include?: any;
+	filterQuery: Partial<Record<keyof T, string | number | boolean | Date>>;
+	include?: IncludeOptions;
 };
 
 export type CreateOptions<T> = {
 	data: Partial<T>;
-	include?: any;
+	include?: IncludeOptions;
 };
 
 export type UpdateOptions<T> = {
-	filterQuery: Partial<Record<keyof T, any>>;
+	filterQuery: Partial<Record<keyof T, string | number | boolean | Date>>;
 	data: Partial<T>;
-	include?: any;
+	include?: IncludeOptions;
 };
 
 export type Pagination = {
@@ -35,12 +37,14 @@ export type Pagination = {
 	pages: number;
 };
 
-export type FilterQuery<T> = Partial<Record<keyof T, any>>;
+export type FilterQuery<T> = Partial<
+	Record<keyof T, string | number | boolean | Date>
+>;
 
 export type IRepository<T extends { id: string }> = {
 	create: (options: CreateOptions<T>) => Promise<T>;
 
-	findAll: (include?: any) => Promise<T[]>;
+	findAll: (include?: IncludeOptions) => Promise<T[]>;
 
 	findMany: (options?: FindManyOptions<T>) => Promise<T[]>;
 
@@ -50,13 +54,13 @@ export type IRepository<T extends { id: string }> = {
 
 	update: (options: UpdateOptions<T>) => Promise<T>;
 
-	remove: (filterQuery: Partial<Record<keyof T, any>>) => Promise<void>;
+	remove: (filterQuery: FilterQuery<T>) => Promise<void>;
 
-	softRemove: (filterQuery: Partial<Record<keyof T, any>>) => Promise<void>;
+	softRemove: (filterQuery: FilterQuery<T>) => Promise<void>;
 
-	restore: (filterQuery: Partial<Record<keyof T, any>>) => Promise<T>;
+	restore: (filterQuery: FilterQuery<T>) => Promise<T>;
 
 	transaction: <R>(callback: (db: DatabaseService) => Promise<R>) => Promise<R>;
 
-	throwNotFoundException: (filterQuery: Partial<Record<keyof T, any>>) => never;
+	throwNotFoundException: (filterQuery: FilterQuery<T>) => never;
 };
