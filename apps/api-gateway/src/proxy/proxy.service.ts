@@ -28,6 +28,15 @@ export class ProxyService {
 
 		return proxy(serviceUrl, {
 			timeout: 30000,
+			proxyReqPathResolver: (req: Request) => {
+				const url = require('node:url');
+				const parsedUrl = url.parse(req.originalUrl || req.url);
+				const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
+
+				const targetPath = `/${pathSegments.slice(1).join('/')}`;
+
+				return targetPath + (parsedUrl.search || '');
+			},
 			proxyReqOptDecorator: (proxyReqOpts: any, srcReq: Request) => {
 				proxyReqOpts.headers['X-Forwarded-For'] = srcReq.ip;
 				proxyReqOpts.headers['X-Original-Host'] = srcReq.get('host');
