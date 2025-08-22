@@ -3,7 +3,6 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CurrentUser } from '@repo/backend';
 import type { Response } from 'express';
 
-// biome-ignore lint/style/useImportType: <explanation>
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';

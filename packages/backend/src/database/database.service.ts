@@ -1,12 +1,12 @@
 import {
 	Injectable,
 	Logger,
-	type OnModuleDestroy,
-	type OnModuleInit,
+	OnModuleDestroy,
+	OnModuleInit,
 } from '@nestjs/common';
-import { type Prisma, PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
-import type { ConfigService } from '../config/';
+import { ConfigService } from '../config/';
 
 @Injectable()
 export class DatabaseService
@@ -14,9 +14,8 @@ export class DatabaseService
 	implements OnModuleInit, OnModuleDestroy
 {
 	private readonly logger = new Logger(DatabaseService.name);
-	private readonly configService: ConfigService;
 
-	constructor(configService: ConfigService) {
+	constructor(private readonly configService: ConfigService) {
 		super({
 			datasourceUrl: configService.get<string>('DATABASE_URL'),
 			log: [

@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 
-import { AbstractRepository } from '@repo/backend';
+import { AbstractRepository, DatabaseService } from '@repo/backend';
 
-import type { User } from './entities';
+import { User } from './entities';
 
 @Injectable()
 export class UsersRepository extends AbstractRepository<User> {
+	constructor(db: DatabaseService) {
+		super(db);
+	}
+
 	protected get model() {
 		return this.db?.user;
 	}

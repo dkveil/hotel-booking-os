@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-// biome-ignore lint/style/useImportType: <explanation>
-import { ConfigService } from '@nestjs/config';
-// biome-ignore lint/style/useImportType: <explanation>
+import { ConfigService } from '@repo/backend';
 import { JwtService } from '@nestjs/jwt';
 import type { Response } from 'express';
 

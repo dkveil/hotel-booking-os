@@ -5,7 +5,7 @@ import { CurrentUser, ZodPipe } from '@repo/backend';
 import { JwtAuthGuard } from '../guards';
 import { CreateUserDto, CreateUserDtoSwagger } from './dto/create-user.dto';
 import type { User } from './entities';
-import type { UsersService } from './users.service';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {

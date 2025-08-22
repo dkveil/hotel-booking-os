@@ -3,17 +3,12 @@ import {
 	Injectable,
 	UnauthorizedException,
 } from '@nestjs/common';
-// biome-ignore lint/style/useImportType: <explanation>
 import { DatabaseService } from '@repo/backend';
 import * as bcrypt from 'bcryptjs';
 
-// biome-ignore lint/style/useImportType: <explanation>
 import { CreateUserDto } from './dto/create-user.dto';
-// biome-ignore lint/style/useImportType: <explanation>
 import { GetUserDto } from './dto/get-user.dto';
-// biome-ignore lint/style/useImportType: <explanation>
 import { UserCreateInput } from './entities';
-// biome-ignore lint/style/useImportType: <explanation>
 import { UsersRepository } from './users.repository';
 
 @Injectable()
