@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@repo/backend';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@repo/backend';
 import type { Response } from 'express';
 
 import type { User } from './users/entities';
@@ -11,6 +11,17 @@ export class AuthService {
 		private readonly jwtService: JwtService,
 		private readonly configService: ConfigService
 	) {}
+
+	getAuthHealth(): object {
+		return {
+			status: 'healthy',
+			timestamp: new Date().toISOString(),
+			service: 'auth-service',
+			version: process.env.npm_package_version || '1.0.0',
+			environment: process.env.NODE_ENV || 'development',
+			uptime: process.uptime(),
+		};
+	}
 
 	async login(user: User, response: Response) {
 		const tokenPayload = {

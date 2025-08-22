@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@repo/backend/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CustomThrottlerGuard } from './guards/custom-throttler.guard';
+import { ProxyModule } from './proxy/proxy.module';
 
 @Module({
 	imports: [
@@ -30,6 +31,7 @@ import { CustomThrottlerGuard } from './guards/custom-throttler.guard';
 			},
 			inject: [ConfigService],
 		}),
+		ProxyModule,
 	],
 	controllers: [AppController],
 	providers: [

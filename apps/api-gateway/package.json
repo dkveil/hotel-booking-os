@@ -23,6 +23,7 @@
 		"@nestjs/throttler": "^6.4.0",
 		"@repo/backend": "workspace:*",
 		"cookie-parser": "^1.4.7",
+		"express-http-proxy": "^2.1.1",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.1"
 	},
@@ -33,6 +34,7 @@
 		"@repo/typescript-config": "workspace:*",
 		"@types/cookie-parser": "^1.4.9",
 		"@types/express": "^5.0.0",
+		"@types/express-http-proxy": "^1.6.7",
 		"@types/node": "^22.10.7",
 		"nodemon": "^3.1.10",
 		"source-map-support": "^0.5.21",

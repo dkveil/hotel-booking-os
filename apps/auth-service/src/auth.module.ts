@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import {
+	MiddlewareConsumer,
+	Module,
+	NestModule,
+	RequestMethod,
+} from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@repo/backend';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { GatewayOnlyMiddleware } from './middleware/gateway-only.middleware';
 import { JwtStrategy, LocalStrategy } from './strategies';
 import { UsersModule } from './users/users.module';
 
@@ -24,4 +30,11 @@ import { UsersModule } from './users/users.module';
 	controllers: [AuthController],
 	providers: [AuthService, JwtStrategy, LocalStrategy],
 })
-export class AuthModule {}
+export class AuthModule implements NestModule {
+	configure(consumer: MiddlewareConsumer) {
+		consumer
+			.apply(GatewayOnlyMiddleware)
+			.exclude({ path: 'auth/health', method: RequestMethod.GET })
+			.forRoutes('*');
+	}
+}
