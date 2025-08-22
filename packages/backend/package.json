@@ -33,6 +33,10 @@
 			"types": "./dist/filters/index.d.ts",
 			"default": "./dist/filters/index.js"
 		},
+		"./middleware": {
+			"types": "./dist/middleware/index.d.ts",
+			"default": "./dist/middleware/index.js"
+		},
 		"./pipes": {
 			"types": "./dist/pipes/index.d.ts",
 			"default": "./dist/pipes/index.js"

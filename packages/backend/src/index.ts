@@ -13,6 +13,8 @@ export * from './dto';
 // biome-ignore lint: ignore
 export * from './filters';
 // biome-ignore lint: ignore
+export * from './middleware';
+// biome-ignore lint: ignore
 export * from './pipes';
 // biome-ignore lint: ignore
 export * from './redis';

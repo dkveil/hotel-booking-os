@@ -2,10 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { ConfigService, ZodFilter } from '@repo/backend';
 import cookieParser from 'cookie-parser';
 
-import { AuthModule } from './auth.module';
+import { ReservationsModule } from './reservations.module';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AuthModule);
+	const app = await NestFactory.create(ReservationsModule);
 
 	app.use(cookieParser());
 
@@ -14,7 +14,7 @@ async function bootstrap() {
 	const isProduction = configService.get('NODE_ENV') === 'production';
 
 	const host = isProduction ? '0.0.0.0' : 'localhost';
-	const port = Number(configService.get('AUTH_PORT', 6000));
+	const port = Number(configService.get('RESERVATIONS_PORT', 6001));
 
 	app.useGlobalFilters(new ZodFilter());
 
@@ -24,7 +24,7 @@ async function bootstrap() {
 
 	await app.listen(port, host);
 
-	console.log(`🚀 Auth service listening at http://${host}:${port}`);
+	console.log(`🚀 Reservations service listening at http://${host}:${port}`);
 	console.log(`🌍 Environment: ${isProduction ? 'production' : 'development'}`);
 }
 

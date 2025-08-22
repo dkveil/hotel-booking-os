@@ -5,11 +5,13 @@ import {
 	RequestMethod,
 } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@repo/backend';
-
+import {
+	ConfigModule,
+	ConfigService,
+	GatewayOnlyMiddleware,
+} from '@repo/backend';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { GatewayOnlyMiddleware } from './middleware/gateway-only.middleware';
 import { JwtStrategy, LocalStrategy } from './strategies';
 import { UsersModule } from './users/users.module';
 

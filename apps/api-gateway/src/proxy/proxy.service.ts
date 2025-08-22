@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { AUTH_SERVICE, ConfigService } from '@repo/backend';
-import type { NextFunction, Request, Response } from 'express';
+import {
+	AUTH_SERVICE,
+	ConfigService,
+	RESERVATIONS_SERVICE,
+} from '@repo/backend';
+import type { Request, Response } from 'express';
 import proxy from 'express-http-proxy';
 
 interface ServiceConfig {
@@ -61,6 +65,11 @@ export class ProxyService {
 				path: '/auth',
 				serviceName: AUTH_SERVICE,
 				port: Number(this.configService.get('AUTH_PORT', 6000)),
+			},
+			{
+				path: '/reservations',
+				serviceName: RESERVATIONS_SERVICE,
+				port: Number(this.configService.get('RESERVATIONS_PORT', 6001)),
 			},
 		];
 	}
