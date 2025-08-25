@@ -9,9 +9,17 @@ export const envSchema = z.object({
 	GATEWAY_PORT: z.coerce.number().default(8080),
 	AUTH_PORT: z.coerce.number().default(6000),
 	RESERVATIONS_PORT: z.coerce.number().default(6001),
+	PAYMENTS_PORT: z.coerce.number().default(6002),
 
 	DATABASE_URL: z.string(),
 
 	JWT_SECRET: z.string(),
 	JWT_EXPIRATION_TIME: z.coerce.number().default(3600),
+
+	STRIPE_SECRET_KEY: z.string(),
+	STRIPE_SUCCESS_URL: z.string(),
+	STRIPE_CANCEL_URL: z.string(),
+	STRIPE_WEBHOOK_SECRET: z.string(),
+
+	INTER_SERVICE_SECRET: z.string(),
 });
