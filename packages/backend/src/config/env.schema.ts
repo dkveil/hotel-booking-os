@@ -22,4 +22,10 @@ export const envSchema = z.object({
 	STRIPE_WEBHOOK_SECRET: z.string(),
 
 	INTER_SERVICE_SECRET: z.string(),
+
+	SMTP_USER: z.string(),
+	GOOGLE_OAUTH_CLIENT_ID: z.string(),
+	GOOGLE_OAUTH_CLIENT_SECRET: z.string(),
+	GOOGLE_OAUTH_REFRESH_TOKEN: z.string(),
+	GOOGLE_OAUTH_ACCESS_TOKEN: z.string(),
 });
