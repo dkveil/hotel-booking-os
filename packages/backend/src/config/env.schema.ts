@@ -28,4 +28,12 @@ export const envSchema = z.object({
 	GOOGLE_OAUTH_CLIENT_SECRET: z.string(),
 	GOOGLE_OAUTH_REFRESH_TOKEN: z.string(),
 	GOOGLE_OAUTH_ACCESS_TOKEN: z.string(),
+
+	USE_REDIS: z.boolean().default(false),
+	REDIS_HOST: z.string().default('localhost'),
+	REDIS_PORT: z.coerce.number().default(6379),
+	REDIS_PASSWORD: z.string().default(''),
+
+	RABBITMQ_URL: z.string().default('amqp://rabbitmq:5672'),
+	RABBITMQ_PORT: z.coerce.number().default(5672),
 });
