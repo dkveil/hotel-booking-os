@@ -26,13 +26,9 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 		}
 
 		try {
-			const { host, port, password } = this.configService.redisConnectData;
+			const redisUrl = this.configService.get('REDIS_URL');
 
-			this.client = new Redis({
-				host,
-				port,
-				password,
-			});
+			this.client = new Redis(redisUrl);
 
 			const pong = await this.client.ping();
 			if (pong === 'PONG') {

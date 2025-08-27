@@ -4,6 +4,7 @@ export const envSchema = z.object({
 	NODE_ENV: z
 		.enum(['development', 'production', 'test'])
 		.default('development'),
+
 	CORS_ORIGIN: z.string().default('*'),
 
 	GATEWAY_PORT: z.coerce.number().default(8080),
@@ -11,7 +12,12 @@ export const envSchema = z.object({
 	RESERVATIONS_PORT: z.coerce.number().default(6001),
 	PAYMENTS_PORT: z.coerce.number().default(6002),
 
+	INTER_SERVICE_SECRET: z.string(),
+
 	DATABASE_URL: z.string(),
+
+	USE_REDIS: z.string().default('false'),
+	REDIS_URL: z.string(),
 
 	JWT_SECRET: z.string(),
 	JWT_EXPIRATION_TIME: z.coerce.number().default(3600),
@@ -20,8 +26,6 @@ export const envSchema = z.object({
 	STRIPE_SUCCESS_URL: z.string(),
 	STRIPE_CANCEL_URL: z.string(),
 	STRIPE_WEBHOOK_SECRET: z.string(),
-
-	INTER_SERVICE_SECRET: z.string(),
 
 	SMTP_USER: z.string(),
 	GOOGLE_OAUTH_CLIENT_ID: z.string(),

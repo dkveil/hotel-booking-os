@@ -7,6 +7,7 @@
 		"dev:services": "turbo run dev",
 		"kill": "turbo run kill && pnpm run kill:infra",
 		"kill:infra": "docker compose -f docker-compose.dev.yml down",
+		"complete:install": "pnpm i && pnpm exec playwright install && pnpm exec playwright install-deps && pnpm run db:generate",
 		"clean": "turbo run clean",
 		"clean:all": "turbo run clean --all",
 		"clean:install": "pnpm run clean:modules && pnpm install",

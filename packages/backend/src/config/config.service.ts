@@ -13,18 +13,6 @@ export class ConfigService extends NestConfigService {
 		return url;
 	}
 
-	get redisConnectData() {
-		const host = this.get<string>('REDIS_HOST');
-		const port = this.get<number>('REDIS_PORT');
-		const password = this.get<string>('REDIS_PASSWORD');
-
-		if (!(host && port && password)) {
-			throw new Error('Redis configuration is incomplete');
-		}
-
-		return { host, port, password };
-	}
-
 	get useRedis(): boolean {
 		return this.get<string>('USE_REDIS') === 'true';
 	}
