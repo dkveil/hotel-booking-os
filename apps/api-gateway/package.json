@@ -22,8 +22,10 @@
 		"@nestjs/platform-express": "^11.0.1",
 		"@nestjs/throttler": "^6.4.0",
 		"@repo/backend": "workspace:*",
+		"@repo/logger": "workspace:*",
 		"cookie-parser": "^1.4.7",
 		"express-http-proxy": "^2.1.1",
+		"nestjs-pino": "^4.4.0",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.1"
 	},

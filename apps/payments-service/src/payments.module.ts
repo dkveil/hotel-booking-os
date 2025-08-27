@@ -11,10 +11,12 @@ import {
 
 import { PaymentsController } from './payments.controller';
 import { PaymentsService } from './payments.service';
+import { LoggerModule } from '@repo/logger/nestjs';
 
 @Module({
 	imports: [
 		ConfigModule,
+		LoggerModule.forRoot('payments-service'),
 		ClientsModule.registerAsync([
 			{
 				name: RESERVATIONS_SERVICE,

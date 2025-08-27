@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@repo/backend": "workspace:*",
+		"@repo/logger": "workspace:*",
 		"@nestjs/common": "^11.1.5",
 		"@nestjs/config": "^4.0.0",
 		"@nestjs/core": "^11.1.5",
@@ -33,6 +34,7 @@
 		"cookie-parser": "^1.4.7",
 		"express": "^4.21.2",
 		"ioredis": "^5.5.0",
+		"nestjs-pino": "^4.4.0",
 		"nestjs-zod": "^4.2.1",
 		"nodemailer": "^7.0.5",
 		"passport-jwt": "^4.0.1",

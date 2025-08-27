@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ConfigService, ZodFilter } from '@repo/backend';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import { Logger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -12,8 +13,10 @@ async function bootstrap() {
 	app.use(express.json({ limit: '50mb' }));
 	app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-	const configService = app.get(ConfigService);
+	const logger = app.get(Logger);
+	app.useLogger(logger);
 
+	const configService = app.get(ConfigService);
 	const isProduction = configService.get('NODE_ENV') === 'production';
 
 	app
@@ -38,22 +41,22 @@ async function bootstrap() {
 
 	const server = await app.listen(port, host);
 
-	console.log(`🚀 API Gateway listening at http://${host}:${port}`);
-	console.log(`🌍 Environment: ${isProduction ? 'production' : 'development'}`);
-	console.log(`🔗 CORS Origins: ${JSON.stringify(origin)}`);
+	logger.log(`🚀 API Gateway listening at http://${host}:${port}`);
+	logger.log(`🌍 Environment: ${isProduction ? 'production' : 'development'}`);
+	logger.log(`🔗 CORS Origins: ${JSON.stringify(origin)}`);
 
 	process.on('SIGTERM', () => {
-		console.log('🛑 SIGTERM received, shutting down gracefully');
+		logger.warn('🛑 SIGTERM received, shutting down gracefully');
 		server.close(() => {
-			console.log('✅ Process terminated');
+			logger.log('✅ Process terminated');
 			process.exit(0);
 		});
 	});
 
 	process.on('SIGINT', () => {
-		console.log('🛑 SIGINT received, shutting down gracefully');
+		logger.warn('🛑 SIGINT received, shutting down gracefully');
 		server.close(() => {
-			console.log('✅ Process terminated');
+			logger.log('✅ Process terminated');
 			process.exit(0);
 		});
 	});

@@ -14,11 +14,13 @@ import {
 import { ReservationsController } from './reservations.controller';
 import { ReservationsRepository } from './reservations.repository';
 import { ReservationsService } from './reservations.service';
+import { LoggerModule } from '@repo/logger/nestjs';
 
 @Module({
 	imports: [
 		DatabaseModule,
 		RedisModule,
+		LoggerModule.forRoot('reservations-service'),
 		ClientsModule.registerAsync([
 			{
 				name: AUTH_SERVICE,

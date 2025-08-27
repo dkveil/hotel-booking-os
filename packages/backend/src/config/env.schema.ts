@@ -38,4 +38,6 @@ export const envSchema = z.object({
 	RABBITMQ_PASSWORD: z.string(),
 	RABBITMQ_PORT: z.coerce.number().default(5672),
 	RABBITMQ_MANAGEMENT_PORT: z.coerce.number().default(15672),
+
+	LOG_LEVEL: z.string().default('info'),
 });

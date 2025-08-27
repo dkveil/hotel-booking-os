@@ -14,10 +14,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy, LocalStrategy } from './strategies';
 import { UsersModule } from './users/users.module';
+import { LoggerModule } from '@repo/logger/nestjs';
 
 @Module({
 	imports: [
 		ConfigModule,
+		LoggerModule.forRoot('auth-service'),
 		UsersModule,
 		JwtModule.registerAsync({
 			useFactory: (configService: ConfigService) => ({

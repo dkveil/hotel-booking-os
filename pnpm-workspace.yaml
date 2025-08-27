@@ -3,9 +3,9 @@ packages:
   - packages/config/*
   - packages/design-system/*
   - packages/testing/*
+  - packages/lib/*
   - packages/ui/*
   - packages/*
-  - services/*
 
 onlyBuiltDependencies:
   - '@nestjs/core'

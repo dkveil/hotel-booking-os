@@ -1,0 +1,48 @@
+{
+	"name": "@repo/logger",
+	"version": "1.0.0",
+	"description": "Shared logger utilities compatible with NestJS and Next.js",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./nestjs": {
+			"types": "./dist/nestjs.d.ts",
+			"default": "./dist/nestjs.js"
+		},
+		"./nextjs": {
+			"types": "./dist/nextjs.d.ts",
+			"default": "./dist/nextjs.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc -b -w",
+		"clean": "rm -rf dist",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome lint .",
+		"format": "biome format --write ."
+	},
+	"dependencies": {
+		"nestjs-pino": "^4.4.0",
+		"pino": "^9.6.0",
+		"pino-pretty": "^13.0.0"
+	},
+	"devDependencies": {
+		"@repo/typescript-config": "workspace:*",
+		"@types/node": "^22.13.1",
+		"typescript": "5.7.3"
+	},
+	"peerDependencies": {
+		"@nestjs/common": "^11.0.0"
+	},
+	"peerDependenciesMeta": {
+		"@nestjs/common": {
+			"optional": true
+		}
+	},
+	"packageManager": "pnpm@10.14.0"
+}

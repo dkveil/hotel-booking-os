@@ -4,6 +4,7 @@ import { Transport } from '@nestjs/microservices';
 import { RmqUrl } from '@nestjs/microservices/external/rmq-url.interface';
 import { ConfigService, ZodFilter } from '@repo/backend';
 import cookieParser from 'cookie-parser';
+import { Logger } from 'nestjs-pino';
 
 import { NotificationsModule } from './notifications.module';
 
@@ -11,6 +12,9 @@ async function bootstrap() {
 	const app = await NestFactory.create(NotificationsModule);
 
 	app.use(cookieParser());
+
+	const logger = app.get(Logger);
+	app.useLogger(logger);
 
 	const configService = app.get(ConfigService);
 
@@ -37,8 +41,8 @@ async function bootstrap() {
 	await app.startAllMicroservices();
 	await app.listen(port, host);
 
-	console.log(`🚀 Notifications service listening at http://${host}:${port}`);
-	console.log(`🌍 Environment: ${isProduction ? 'production' : 'development'}`);
+	logger.log(`🚀 Notifications service listening at http://${host}:${port}`);
+	logger.log(`🌍 Environment: ${isProduction ? 'production' : 'development'}`);
 }
 
 void bootstrap();
