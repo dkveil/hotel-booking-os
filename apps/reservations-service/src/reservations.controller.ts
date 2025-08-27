@@ -50,6 +50,11 @@ import { UpdateReservationSchema } from './schema/reservation.schema';
 export class ReservationsController {
 	constructor(private readonly reservationsService: ReservationsService) {}
 
+	@Get('health')
+	health() {
+		return this.reservationsService.getReservationsHealth();
+	}
+
 	@UseGuards(JwtAuthGuard)
 	@Post()
 	@ApiOperation({ summary: 'Create new reservation' })
@@ -189,15 +194,15 @@ export class ReservationsController {
 		await this.reservationsService.remove(id);
 	}
 
-	// @MessagePattern('update-reservation-status')
-	// @UseGuards(InterServiceGuard)
-	// async updateReservationStatus(@Payload() data: UpdateReservationMessageDto) {
-	// 	const { reservationId, email, status } = data;
+	@MessagePattern('update-reservation-status')
+	@UseGuards(InterServiceGuard)
+	async updateReservationStatus(@Payload() data: UpdateReservationMessageDto) {
+		const { reservationId, email, status } = data;
 
-	// 	return this.reservationsService.updateWithEmailVerification(
-	// 		reservationId,
-	// 		{ status: status || ReservationStatus.PENDING_APPROVAL },
-	// 		email
-	// 	);
-	// }
+		return this.reservationsService.updateWithEmailVerification(
+			reservationId,
+			{ status: status || ReservationStatus.PENDING_APPROVAL },
+			email
+		);
+	}
 }

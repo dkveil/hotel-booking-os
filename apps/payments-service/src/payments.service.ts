@@ -36,6 +36,17 @@ export class PaymentsService {
 		}
 	);
 
+	getPaymentsHealth(): object {
+		return {
+			status: 'healthy',
+			timestamp: new Date().toISOString(),
+			service: 'payments-service',
+			version: process.env.npm_package_version || '1.0.0',
+			environment: process.env.NODE_ENV || 'development',
+			uptime: process.uptime(),
+		};
+	}
+
 	async createCharge({
 		amount,
 		currency,

@@ -21,6 +21,17 @@ export class NotificationsService {
 		});
 	}
 
+	getNotificationsHealth(): object {
+		return {
+			status: 'healthy',
+			timestamp: new Date().toISOString(),
+			service: 'notifications-service',
+			version: process.env.npm_package_version || '1.0.0',
+			environment: process.env.NODE_ENV || 'development',
+			uptime: process.uptime(),
+		};
+	}
+
 	async notifyEmail(data: NotifyEmailDto) {
 		const { email, text } = data;
 

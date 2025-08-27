@@ -1,13 +1,28 @@
-import { Body, Controller, Post, Req, Res, UsePipes } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import {
+	Body,
+	Controller,
+	Get,
+	Post,
+	Req,
+	Res,
+	UsePipes,
+} from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateChargeDto, CreateChargeSchema, ZodPipe } from '@repo/backend';
 import { Request, Response } from 'express';
 
 import { PaymentsService } from './payments.service';
 
-@Controller()
+@ApiTags('Payments')
+@Controller('api')
 export class PaymentsController {
 	constructor(private readonly paymentsService: PaymentsService) {}
+
+	@Get('health')
+	health() {
+		return this.paymentsService.getPaymentsHealth();
+	}
 
 	@MessagePattern('create-checkout-session')
 	@UsePipes(new ZodPipe(CreateChargeSchema))

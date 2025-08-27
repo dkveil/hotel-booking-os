@@ -5,7 +5,7 @@ import {
 	UnauthorizedException,
 } from '@nestjs/common';
 
-import type { ConfigService } from '../config';
+import { ConfigService } from '../config';
 
 @Injectable()
 export class InterServiceGuard implements CanActivate {
