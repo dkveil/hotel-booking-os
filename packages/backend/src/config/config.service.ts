@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer';
 import * as crypto from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
+import { handleError } from '../error-handler';
 
 @Injectable()
 export class ConfigService extends NestConfigService {
@@ -25,7 +26,7 @@ export class ConfigService extends NestConfigService {
 		const timestamp = Date.now();
 
 		if (!serviceToken) {
-			throw new Error('INTER_SERVICE_SECRET not configured');
+			return handleError('INTER_SERVICE_SECRET not configured');
 		}
 
 		const fullPayload = serviceName

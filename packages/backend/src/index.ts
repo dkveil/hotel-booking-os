@@ -9,6 +9,8 @@ export * from './database';
 // biome-ignore lint: ignore
 export * from './decorators';
 // biome-ignore lint: ignore
+export * from './error-handler';
+// biome-ignore lint: ignore
 export * from './dto';
 // biome-ignore lint: ignore
 export * from './filters';

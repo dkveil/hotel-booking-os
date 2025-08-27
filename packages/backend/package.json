@@ -25,6 +25,10 @@
 			"types": "./dist/decorators/index.d.ts",
 			"default": "./dist/decorators/index.js"
 		},
+		"./error-handler": {
+			"types": "./dist/error-handler/index.d.ts",
+			"default": "./dist/error-handler/index.js"
+		},
 		"./dto": {
 			"types": "./dist/dto/index.d.ts",
 			"default": "./dist/dto/index.js"

@@ -7,12 +7,16 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
+	ConflictError,
 	DatabaseService,
 	FilterQuery,
 	NOTIFICATIONS_SERVICE,
+	NotFoundError,
 	PAYMENTS_SERVICE,
 	Pagination,
 	RedisService,
+	ValidationError,
+	handleError,
 } from '@repo/backend';
 import { firstValueFrom } from 'rxjs';
 
@@ -49,90 +53,94 @@ export class ReservationsService {
 	async create(
 		createReservationDto: CreateReservationDto,
 		userData: { id: string; email: string }
-	): Promise<Reservation & { paymentUrl: string }> {
+	): Promise<any> {
 		const { reservation, paymentUrl } =
-			await this.reservationsRepository.transaction<{
-				reservation: Reservation;
-				paymentUrl: string;
-			}>(async (db: DatabaseService) => {
-				const {
-					placeId,
-					startDate,
-					endDate,
-					guestsCount,
-					totalPrice,
-					currency,
-					notes,
-					charge,
-				} = createReservationDto;
-
-				if (!charge) {
-					throw new BadRequestException('Payment charge data is required');
-				}
-
-				const overlapping = await db.reservation.findFirst({
-					where: {
+			await this.reservationsRepository.transaction<any>(
+				async (db: DatabaseService) => {
+					const {
 						placeId,
-						startDate: { lte: endDate },
-						endDate: { gte: startDate },
-					},
-				});
+						startDate,
+						endDate,
+						guestsCount,
+						totalPrice,
+						currency,
+						notes,
+						charge,
+					} = createReservationDto;
 
-				if (overlapping) {
-					throw new ConflictException('This time slot is already booked');
-				}
+					if (!charge) {
+						throw new ValidationError({
+							charge: ['Payment charge data is required'],
+						});
+					}
 
-				const reservationData: ReservationCreateInput = {
-					userId: userData.id,
-					placeId,
-					startDate,
-					endDate,
-					guestsCount,
-					totalPrice,
-					currency,
-					notes,
-				};
-
-				if (!this.paymentsService) {
-					throw new Error('Payments service is not available');
-				}
-
-				try {
-					const reservation = await db.reservation.create({
-						data: {
-							...reservationData,
-							status: ReservationStatus.PENDING_PAYMENT,
+					const overlapping = await db.reservation.findFirst({
+						where: {
+							placeId,
+							startDate: { lte: endDate },
+							endDate: { gte: startDate },
 						},
 					});
 
-					const chargeData = {
-						...charge,
-						email: userData.email,
-						reservationId: reservation.id,
+					if (overlapping) {
+						throw new ConflictError('This time slot is already booked', {
+							conflictingReservation: overlapping.id,
+							requestedSlot: { startDate, endDate },
+						});
+					}
+
+					const reservationData: ReservationCreateInput = {
+						userId: userData.id,
+						placeId,
+						startDate,
+						endDate,
+						guestsCount,
+						totalPrice,
+						currency,
+						notes,
 					};
 
-					const paymentResult = await firstValueFrom(
-						this.paymentsService.send('create-checkout-session', chargeData)
-					);
+					if (!this.paymentsService) {
+						throw new Error('Payments service is not available');
+					}
 
-					await this.cacheReservation(reservation);
-					await this.invalidateRelatedCache(placeId, startDate, endDate);
-
-					setImmediate(() => {
-						this.notificationsService.emit('notify_email', {
-							email: userData.email,
-							text: 'Your reservation has been created. Once payment is completed, it will be sent to the host for approval.',
+					try {
+						const reservation = await db.reservation.create({
+							data: {
+								...reservationData,
+								status: ReservationStatus.PENDING_PAYMENT,
+							},
 						});
-					});
 
-					return { reservation, paymentUrl: paymentResult.url };
-				} catch (error) {
-					console.error('Payment creation failed:', error);
-					throw new BadRequestException('Payment processing failed');
+						const chargeData = {
+							...charge,
+							email: userData.email,
+							reservationId: reservation.id,
+						};
+
+						const paymentResult = await firstValueFrom(
+							this.paymentsService.send('create-checkout-session', chargeData)
+						);
+
+						await this.cacheReservation(reservation);
+						await this.invalidateRelatedCache(placeId, startDate, endDate);
+
+						setImmediate(() => {
+							this.notificationsService.emit('notify_email', {
+								email: userData.email,
+								text: 'Your reservation has been created. Once payment is completed, it will be sent to the host for approval.',
+							});
+						});
+
+						return { reservation, paymentUrl: paymentResult.url };
+					} catch (error) {
+						console.error('Payment creation failed:', error);
+						return handleError(error);
+					}
 				}
-			});
+			);
 
-		return { ...reservation, paymentUrl };
+		return { reservation, paymentUrl };
 	}
 
 	async findAll(
@@ -212,7 +220,7 @@ export class ReservationsService {
 		});
 
 		if (!reservation) {
-			throw new NotFoundException('Reservation not found');
+			throw new NotFoundError('Reservation not found');
 		}
 
 		if (this.redisService.isEnabled()) {
@@ -241,7 +249,7 @@ export class ReservationsService {
 
 				if (!existingReservation) {
 					const filterDetails = JSON.stringify({ id, ...additionalFilter });
-					throw new NotFoundException(
+					throw new NotFoundError(
 						`Reservation not found with filter: ${filterDetails}`
 					);
 				}
@@ -285,7 +293,7 @@ export class ReservationsService {
 		);
 
 		if (!user) {
-			throw new NotFoundException(`User with email ${email} not found`);
+			throw new NotFoundError(`User with email ${email} not found`);
 		}
 
 		switch (updateReservationDto.status) {
@@ -308,7 +316,7 @@ export class ReservationsService {
 				});
 
 				if (!existingReservation) {
-					throw new NotFoundException('Reservation not found');
+					throw new NotFoundError('Reservation not found');
 				}
 
 				return await db.reservation.update({

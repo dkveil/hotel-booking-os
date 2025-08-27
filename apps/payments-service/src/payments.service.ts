@@ -10,8 +10,11 @@ import { ReservationStatus } from '@prisma/client';
 import {
 	ConfigService,
 	CreateChargeDto,
+	ForbiddenError,
+	handleError,
 	NOTIFICATIONS_SERVICE,
 	RESERVATIONS_SERVICE,
+	ValidationError,
 } from '@repo/backend';
 import { Request, Response } from 'express';
 import { firstValueFrom } from 'rxjs';
@@ -87,7 +90,7 @@ export class PaymentsService {
 		const webhookSecret = this.configService.get('STRIPE_WEBHOOK_SECRET');
 
 		if (!webhookSecret) {
-			throw new ForbiddenException('Stripe webhook secret is not set');
+			throw new ForbiddenError('Stripe webhook secret is not set');
 		}
 
 		let event: Stripe.Event;
@@ -99,7 +102,7 @@ export class PaymentsService {
 				webhookSecret
 			);
 		} catch (error) {
-			throw new BadRequestException('Invalid signature', error);
+			return handleError(error);
 		}
 
 		switch (event.type) {

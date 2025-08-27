@@ -4,6 +4,7 @@ import { Strategy } from 'passport-local';
 
 import { User } from '../users/entities/';
 import { UsersService } from '../users/users.service';
+import { AuthError } from '@repo/backend';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
@@ -17,7 +18,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
 
 			return user;
 		} catch (error) {
-			throw new UnauthorizedException(error);
+			throw new AuthError(error);
 		}
 	}
 }

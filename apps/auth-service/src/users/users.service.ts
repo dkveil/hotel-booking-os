@@ -3,7 +3,7 @@ import {
 	Injectable,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { DatabaseService } from '@repo/backend';
+import { DatabaseService, AuthError, ConflictError } from '@repo/backend';
 import * as bcrypt from 'bcryptjs';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,7 +25,10 @@ export class UsersService {
 				const existingUser = await db.user.findUnique({ where: { email } });
 
 				if (existingUser) {
-					throw new ConflictException('User with this email already exists');
+					throw new ConflictError('User with this email already exists', {
+						email: existingUser.email,
+						conflictType: 'duplicate_email',
+					});
 				}
 
 				const userData: UserCreateInput = {
@@ -44,13 +47,13 @@ export class UsersService {
 		const user = await this.usersRepository.findOne({ filterQuery: { email } });
 
 		if (!user) {
-			throw new UnauthorizedException('Invalid credentials');
+			throw new AuthError('Invalid credentials');
 		}
 
 		const isPasswordValid = await bcrypt.compare(password, user.password);
 
 		if (!isPasswordValid) {
-			throw new UnauthorizedException('Invalid credentials');
+			throw new AuthError('Invalid credentials');
 		}
 
 		return user;

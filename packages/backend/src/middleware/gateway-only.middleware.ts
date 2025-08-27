@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 import { NextFunction, Request, Response } from 'express';
+import { AuthError } from '../error-handler';
 
 @Injectable()
 export class GatewayOnlyMiddleware implements NestMiddleware {
@@ -24,11 +25,7 @@ export class GatewayOnlyMiddleware implements NestMiddleware {
 				},
 			});
 
-			throw new UnauthorizedException({
-				message: 'Direct access not allowed',
-				error: 'Use API Gateway at port 8080',
-				statusCode: 401,
-			});
+			throw new AuthError('Direct access not allowed');
 		}
 
 		this.logger.log('✅ Request from API Gateway allowed:', {

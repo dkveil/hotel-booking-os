@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 
 import { ConfigService } from '../config';
+import { AuthError } from '../error-handler';
 
 @Injectable()
 export class InterServiceGuard implements CanActivate {
@@ -16,17 +17,17 @@ export class InterServiceGuard implements CanActivate {
 		const { serviceToken, timestamp, signature, service, ...payload } = data;
 
 		if (!(serviceToken && timestamp && signature)) {
-			throw new UnauthorizedException('Missing required authentication fields');
+			throw new AuthError('Missing required authentication fields');
 		}
 
 		const expectedToken = this.configService.get('INTER_SERVICE_SECRET');
 
 		if (serviceToken !== expectedToken) {
-			throw new UnauthorizedException('Invalid service token');
+			throw new AuthError('Invalid service token');
 		}
 
 		if (!this.configService.isTimestampValid(timestamp)) {
-			throw new UnauthorizedException('Request expired or from future');
+			throw new AuthError('Request expired or from future');
 		}
 
 		if (
@@ -37,7 +38,7 @@ export class InterServiceGuard implements CanActivate {
 				service
 			)
 		) {
-			throw new UnauthorizedException('Invalid message signature');
+			throw new AuthError('Invalid message signature');
 		}
 
 		return true;

@@ -1,18 +1,18 @@
-import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
+import type { ArgumentsHost, ExceptionFilter, Logger } from '@nestjs/common';
 import { Catch } from '@nestjs/common';
 import { ZodError } from 'zod';
+import { handleError } from '../error-handler';
 
 @Catch(ZodError)
 export class ZodFilter implements ExceptionFilter {
+	constructor() {}
+
 	catch(exception: ZodError, host: ArgumentsHost) {
 		const ctx = host.switchToHttp();
 		const response = ctx.getResponse();
-		const status = 400;
 
-		response.status(status).json({
-			errors: exception.errors,
-			message: exception.message,
-			statusCode: status,
-		});
+		const errorResponse = handleError(exception);
+
+		response.status(errorResponse.status).json(errorResponse);
 	}
 }

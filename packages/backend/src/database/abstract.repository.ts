@@ -10,6 +10,7 @@ import {
 	IRepository,
 	UpdateOptions,
 } from './interfaces/';
+import { NotFoundError } from '../error-handler';
 
 export abstract class AbstractRepository<T extends { id: string }>
 	implements IRepository<T>
@@ -26,7 +27,7 @@ export abstract class AbstractRepository<T extends { id: string }>
 		const errorMessage = `${this.repositoryName}: Entity with filter ${JSON.stringify(filterQuery)} not found`;
 
 		this.db.log('error', errorMessage);
-		throw new NotFoundException(errorMessage);
+		throw new NotFoundError(errorMessage);
 	}
 
 	async create(options: CreateOptions<T>): Promise<T> {
