@@ -14,6 +14,15 @@ async function bootstrap() {
 
 	const configService = app.get(ConfigService);
 
+	app.connectMicroservice<RmqOptions>({
+		transport: Transport.RMQ,
+		options: {
+			urls: [configService.get('RABBITMQ_URL') as RmqUrl],
+			noAck: false,
+			queue: 'notifications',
+		},
+	});
+
 	const isProduction = configService.get('NODE_ENV') === 'production';
 
 	const host = isProduction ? '0.0.0.0' : 'localhost';
@@ -25,6 +34,7 @@ async function bootstrap() {
 		app.enableShutdownHooks();
 	}
 
+	await app.startAllMicroservices();
 	await app.listen(port, host);
 
 	console.log(`🚀 Notifications service listening at http://${host}:${port}`);

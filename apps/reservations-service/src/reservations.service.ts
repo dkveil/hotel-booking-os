@@ -40,85 +40,86 @@ export class ReservationsService {
 		userData: { id: string; email: string }
 	): Promise<Reservation & { paymentUrl: string }> {
 		const { reservation, paymentUrl } =
-			await this.reservationsRepository.transaction(
-				async (db: DatabaseService) => {
-					const {
+			await this.reservationsRepository.transaction<{
+				reservation: Reservation;
+				paymentUrl: string;
+			}>(async (db: DatabaseService) => {
+				const {
+					placeId,
+					startDate,
+					endDate,
+					guestsCount,
+					totalPrice,
+					currency,
+					notes,
+					charge,
+				} = createReservationDto;
+
+				if (!charge) {
+					throw new BadRequestException('Payment charge data is required');
+				}
+
+				const overlapping = await db.reservation.findFirst({
+					where: {
 						placeId,
-						startDate,
-						endDate,
-						guestsCount,
-						totalPrice,
-						currency,
-						notes,
-						charge,
-					} = createReservationDto;
+						startDate: { lte: endDate },
+						endDate: { gte: startDate },
+					},
+				});
 
-					if (!charge) {
-						throw new BadRequestException('Payment charge data is required');
-					}
+				if (overlapping) {
+					throw new ConflictException('This time slot is already booked');
+				}
 
-					const overlapping = await db.reservation.findFirst({
-						where: {
-							placeId,
-							startDate: { lte: endDate },
-							endDate: { gte: startDate },
+				const reservationData: ReservationCreateInput = {
+					userId: userData.id,
+					placeId,
+					startDate,
+					endDate,
+					guestsCount,
+					totalPrice,
+					currency,
+					notes,
+				};
+
+				if (!this.paymentsService) {
+					throw new Error('Payments service is not available');
+				}
+
+				try {
+					const reservation = await db.reservation.create({
+						data: {
+							...reservationData,
+							status: ReservationStatus.PENDING_PAYMENT,
 						},
 					});
 
-					if (overlapping) {
-						throw new ConflictException('This time slot is already booked');
-					}
-
-					const reservationData: ReservationCreateInput = {
-						userId: userData.id,
-						placeId,
-						startDate,
-						endDate,
-						guestsCount,
-						totalPrice,
-						currency,
-						notes,
+					const chargeData = {
+						...charge,
+						email: userData.email,
+						reservationId: reservation.id,
 					};
 
-					if (!this.paymentsService) {
-						throw new Error('Payments service is not available');
-					}
+					const paymentResult = await firstValueFrom(
+						this.paymentsService.send('create-checkout-session', chargeData)
+					);
 
-					try {
-						const reservation = await db.reservation.create({
-							data: {
-								...reservationData,
-								status: ReservationStatus.PENDING_PAYMENT,
-							},
-						});
+					await this.cacheReservation(reservation);
+					await this.invalidateRelatedCache(placeId, startDate, endDate);
 
-						const chargeData = {
-							...charge,
-							email: userData.email,
-							reservationId: reservation.id,
-						};
-
-						const paymentResult = await firstValueFrom(
-							this.paymentsService.send('create-checkout-session', chargeData)
-						);
-
-						await this.cacheReservation(reservation);
-						await this.invalidateRelatedCache(placeId, startDate, endDate);
-
+					setImmediate(() => {
 						this.notificationsService.emit('notify_email', {
 							email: userData.email,
 							text: 'Your reservation has been created. Once payment is completed, it will be sent to the host for approval.',
 						});
+					});
 
-						return { reservation, paymentUrl: paymentResult.url };
-					} catch (error) {
-						console.error('Payment or reservation creation failed:', error);
-						throw new BadRequestException(
-							'Payment processing or reservation creation failed'
-						);
-					}
+					return { reservation, paymentUrl: paymentResult.url };
+				} catch (error) {
+					console.error('Payment creation failed:', error);
+					throw new BadRequestException('Payment processing failed');
 				}
-			);
+			});
 
 		return { ...reservation, paymentUrl };
 	}
@@ -152,8 +153,8 @@ export class ReservationsService {
 		if (status) where.status = status;
 		if (userId) where.userId = userId;
 		if (placeId) where.placeId = placeId;
-		// if (startDate) where.startDate = { gte: startDate };
-		// if (endDate) where.endDate = { lte: endDate };
+		if (startDate) where.startDate = { gte: startDate } as any;
+		if (endDate) where.endDate = { lte: endDate } as any;
 		const [data, total] = await Promise.all([
 			this.reservationsRepository.findMany({
 				filterQuery: where,

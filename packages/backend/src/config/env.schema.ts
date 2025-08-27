@@ -28,4 +28,10 @@ export const envSchema = z.object({
 	GOOGLE_OAUTH_CLIENT_SECRET: z.string(),
 	GOOGLE_OAUTH_REFRESH_TOKEN: z.string(),
 	GOOGLE_OAUTH_ACCESS_TOKEN: z.string(),
+
+	RABBITMQ_URL: z.string(),
+	RABBITMQ_USER: z.string(),
+	RABBITMQ_PASSWORD: z.string(),
+	RABBITMQ_PORT: z.coerce.number().default(5672),
+	RABBITMQ_MANAGEMENT_PORT: z.coerce.number().default(15672),
 });
