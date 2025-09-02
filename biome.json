@@ -21,7 +21,10 @@
 			"!**/dist",
 			"!**/.next",
 			"!**/storybook-static",
-			"!packages/ui/web/src/styles.css"
+			"!packages/ui/web/src/styles.css",
+			"!**/payload-types.ts",
+			"!**/importMap.js",
+			"!apps/admin/src/app/layout.tsx"
 		]
 	},
 	"formatter": {
