@@ -45,6 +45,24 @@ export function createPaginationMeta(
 	};
 }
 
+export function createDefinedPaginationMeta(
+	page: number,
+	paginCounter: number,
+	totalPages: number,
+	totalDocs: number,
+	hasNextPage: boolean,
+	hasPrevPage: boolean
+): PaginationMeta {
+	return {
+		page: Number(page),
+		pageSize: Number(paginCounter),
+		totalPages,
+		total: totalDocs,
+		isPrev: hasPrevPage,
+		isNext: hasNextPage,
+	};
+}
+
 export interface RepositoryPaginationOptions {
 	skip?: number;
 	limit?: number;
@@ -60,5 +78,44 @@ export function createRepositoryPagination({
 	return {
 		limit: Number(pageSize),
 		skip: (Number(page) - 1) * Number(pageSize),
+	};
+}
+
+export interface PayloadResponse<T> {
+	docs: T[];
+	page: number;
+	pagingCounter: number;
+	totalPages: number;
+	totalDocs: number;
+	hasNextPage: boolean;
+	hasPrevPage: boolean;
+}
+
+export function createPaginatedDataFromPayload<T>(
+	payloadData: PayloadResponse<T>,
+	dataKey: string
+): Record<string, any> {
+	const {
+		docs,
+		page,
+		pagingCounter,
+		totalPages,
+		totalDocs,
+		hasNextPage,
+		hasPrevPage,
+	} = payloadData;
+
+	const paginationMeta = createDefinedPaginationMeta(
+		page,
+		pagingCounter,
+		totalPages,
+		totalDocs,
+		hasNextPage,
+		hasPrevPage
+	);
+
+	return {
+		[dataKey]: docs,
+		pagination: paginationMeta,
 	};
 }

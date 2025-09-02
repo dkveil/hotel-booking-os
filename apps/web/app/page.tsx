@@ -1,6 +1,11 @@
 import { Button } from '@repo/ui-web/button';
+import { AdminAPI } from '@/lib/admin-api';
 
-export default function Home() {
+export default async function Home() {
+	const { data, success, error } = await AdminAPI.getAllRooms();
+
+	console.log(data, success, error);
+
 	return (
 		<main className='flex flex-col items-center justify-center h-screen'>
 			<h1>Hello World</h1>

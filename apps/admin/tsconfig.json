@@ -8,7 +8,7 @@
 		],
 		"paths": {
 			"@/*": ["./*"],
-			"@payload-config": ["./src/payload.config.ts"]
+			"@payload-config": ["./payload.config.ts"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -846,6 +846,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../../packages/lib/logger
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/ui-web':
         specifier: workspace:*
         version: link:../../packages/ui/web

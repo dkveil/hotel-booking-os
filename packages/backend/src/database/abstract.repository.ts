@@ -1,5 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
-
 import { DatabaseService } from './database.service';
 import {
 	CreateOptions,

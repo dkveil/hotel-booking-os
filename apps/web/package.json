@@ -24,7 +24,8 @@
 		"react-dom": "19.1.0",
 		"next": "15.4.6",
 		"@repo/ui-web": "workspace:*",
-		"@repo/logger": "workspace:*"
+		"@repo/logger": "workspace:*",
+		"@repo/types": "workspace:*"
 	},
 	"devDependencies": {
 		"@repo/tailwind-config": "workspace:*",

@@ -9,6 +9,7 @@ import sharp from 'sharp';
 
 import { Users } from './collections/users';
 import { Media } from './collections/media';
+import { Rooms } from './collections/rooms';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -25,7 +26,7 @@ export default buildConfig({
 		api: '/api',
 		graphQL: '/api/graphql',
 	},
-	collections: [Users, Media],
+	collections: [Users, Media, Rooms],
 	editor: lexicalEditor(),
 	secret: process.env.PAYLOAD_SECRET || '',
 	typescript: {
@@ -42,4 +43,6 @@ export default buildConfig({
 		payloadCloudPlugin(),
 		// storage-adapter-placeholder
 	],
+	cors: ['http://localhost:5000', 'http://localhost:8080'],
+	csrf: ['http://localhost:5000', 'http://localhost:8080'],
 });
