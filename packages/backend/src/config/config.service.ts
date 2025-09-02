@@ -18,10 +18,7 @@ export class ConfigService extends NestConfigService {
 		return this.get<string>('USE_REDIS') === 'true';
 	}
 
-	createSignedMessage(
-		payload: Record<string, unknown>,
-		serviceName?: string
-	): Record<string, unknown> {
+	createSignedMessage(payload: Record<string, unknown>, serviceName?: string) {
 		const serviceToken = this.get('INTER_SERVICE_SECRET');
 		const timestamp = Date.now();
 

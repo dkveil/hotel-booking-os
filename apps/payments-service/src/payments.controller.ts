@@ -11,6 +11,7 @@ import {
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateChargeDto, CreateChargeSchema, ZodPipe } from '@repo/backend';
 import { Request, Response } from 'express';
+import type { HealthCheckResponse } from '@repo/types';
 
 import { PaymentsService } from './payments.service';
 
@@ -20,7 +21,7 @@ export class PaymentsController {
 	constructor(private readonly paymentsService: PaymentsService) {}
 
 	@Get('health')
-	health() {
+	health(): HealthCheckResponse {
 		return this.paymentsService.getPaymentsHealth();
 	}
 

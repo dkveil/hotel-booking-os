@@ -4,6 +4,7 @@ import { ConfigService } from '@repo/backend';
 import type { Response } from 'express';
 
 import type { User } from './users/entities';
+import type { HealthCheckResponse } from '@repo/types';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
 		private readonly configService: ConfigService
 	) {}
 
-	getAuthHealth(): object {
+	getAuthHealth(): HealthCheckResponse {
 		return {
 			status: 'healthy',
 			timestamp: new Date().toISOString(),

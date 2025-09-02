@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import type { HealthCheckResponse } from '@repo/types';
 
 @Injectable()
 export class AppService {
-	getGatewayHealth(): object {
+	getGatewayHealth(): HealthCheckResponse {
 		return {
 			status: 'healthy',
 			timestamp: new Date().toISOString(),

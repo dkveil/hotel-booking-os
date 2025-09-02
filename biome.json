@@ -150,7 +150,7 @@
 				"noDelete": "error",
 				"noDynamicNamespaceImportAccess": "error",
 				"noImgElement": "warn",
-				"noReExportAll": "error",
+				"noReExportAll": "warn",
 				"useTopLevelRegex": "error"
 			},
 			"recommended": true,

@@ -62,6 +62,7 @@
 		"db:migrate": "prisma migrate dev --schema=src/database/schema/prisma/schema.prisma"
 	},
 	"dependencies": {
+		"@repo/types": "workspace:*",
 		"@nestjs/common": "^11.1.5",
 		"@nestjs/config": "^4.0.0",
 		"@nestjs/core": "^11.1.5",

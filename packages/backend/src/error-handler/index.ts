@@ -1,26 +1,10 @@
 import { ZodError } from 'zod/v4';
 import { AppError, ValidationError } from './http-errors';
-
-export function formatResponse(
-	status: number,
-	message: string,
-	errors?: unknown
-) {
-	const responseContent = {
-		success: false,
-		status,
-		error: {
-			message,
-			details: errors,
-		},
-	};
-
-	return responseContent;
-}
+import { createErrorResponse, HttpStatus } from '@repo/types';
 
 export function handleError(error: unknown) {
 	if (error instanceof AppError) {
-		return formatResponse(error.statusCode, error.message, error.details);
+		return createErrorResponse(error.statusCode, error.message, error.details);
 	}
 
 	if (error instanceof ZodError) {
@@ -28,20 +12,22 @@ export function handleError(error: unknown) {
 			.fieldErrors as Record<string, string[]>;
 		const validationError = new ValidationError(fieldErrors);
 
-		return formatResponse(
-			400,
+		return createErrorResponse(
+			HttpStatus.BAD_REQUEST,
 			validationError.message,
 			validationError.details
 		);
 	}
 
 	if (error instanceof Error) {
-		return formatResponse(500, error.message);
+		return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, error.message);
 	}
 
 	console.log('Unhandled error:', error);
-
-	return formatResponse(500, 'Internal server error');
+	return createErrorResponse(
+		HttpStatus.INTERNAL_SERVER_ERROR,
+		'Internal server error'
+	);
 }
 
 export {

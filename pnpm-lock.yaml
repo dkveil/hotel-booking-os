@@ -44,6 +44,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.1
         version: 11.1.6(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)
+      '@nestjs/swagger':
+        specifier: ^11.2.0
+        version: 11.2.0(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2)
       '@nestjs/throttler':
         specifier: ^6.4.0
         version: 6.4.0(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2)
@@ -53,6 +56,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../../packages/lib/logger
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
@@ -153,6 +159,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../../packages/lib/logger
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       amqp-connection-manager:
         specifier: ^4.1.14
         version: 4.1.14(amqplib@0.10.8)
@@ -283,6 +292,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../../packages/lib/logger
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       amqp-connection-manager:
         specifier: ^4.1.14
         version: 4.1.14(amqplib@0.10.8)
@@ -413,6 +425,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../../packages/lib/logger
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       amqp-connection-manager:
         specifier: ^4.1.14
         version: 4.1.14(amqplib@0.10.8)
@@ -543,6 +558,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../../packages/lib/logger
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       amqp-connection-manager:
         specifier: ^4.1.14
         version: 4.1.14(amqplib@0.10.8)
@@ -801,6 +819,9 @@ importers:
       '@prisma/client':
         specifier: ^6.3.1
         version: 6.14.0(prisma@6.14.0(magicast@0.3.5)(typescript@5.7.3))(typescript@5.7.3)
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../types
       amqp-connection-manager:
         specifier: ^4.1.14
         version: 4.1.14(amqplib@0.10.8)
@@ -949,6 +970,22 @@ importers:
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.3.0)(@vitest/ui@3.2.4)(jsdom@26.1.0)(lightningcss@1.30.1)(terser@5.43.1)
+
+  packages/types:
+    dependencies:
+      '@prisma/client':
+        specifier: ^6.3.1
+        version: 6.14.0(prisma@6.14.0(magicast@0.3.5)(typescript@5.9.2))(typescript@5.9.2)
+      zod:
+        specifier: ^3.24.1
+        version: 3.25.76
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../config/typescript
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.2
 
   packages/ui/web:
     dependencies:

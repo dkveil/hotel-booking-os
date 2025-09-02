@@ -14,11 +14,11 @@ import {
 	handleError,
 	NOTIFICATIONS_SERVICE,
 	RESERVATIONS_SERVICE,
-	ValidationError,
 } from '@repo/backend';
 import { Request, Response } from 'express';
 import { firstValueFrom } from 'rxjs';
 import Stripe from 'stripe';
+import type { HealthCheckResponse } from '@repo/types';
 
 @Injectable()
 export class PaymentsService {
@@ -39,7 +39,7 @@ export class PaymentsService {
 		}
 	);
 
-	getPaymentsHealth(): object {
+	getPaymentsHealth(): HealthCheckResponse {
 		return {
 			status: 'healthy',
 			timestamp: new Date().toISOString(),

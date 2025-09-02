@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@repo/backend';
 import * as nodemailer from 'nodemailer';
+import type { HealthCheckResponse } from '@repo/types';
 
 import { NotifyEmailDto } from './dto';
 
@@ -21,7 +22,7 @@ export class NotificationsService {
 		});
 	}
 
-	getNotificationsHealth(): object {
+	getNotificationsHealth(): HealthCheckResponse {
 		return {
 			status: 'healthy',
 			timestamp: new Date().toISOString(),

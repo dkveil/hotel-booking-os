@@ -1,10 +1,12 @@
+import { HttpStatus } from '@repo/types';
+
 export class AppError extends Error {
-	statusCode: number;
+	statusCode: HttpStatus;
 	isOperational: boolean;
 	details?: Record<string, unknown>;
 
 	constructor(
-		statusCode: number,
+		statusCode: HttpStatus,
 		message: string,
 		isOperational = true,
 		details?: Record<string, unknown>
@@ -21,7 +23,7 @@ export class AppError extends Error {
 export class ValidationError extends AppError {
 	constructor(fieldErrors: Record<string, string[]>) {
 		const details = ValidationError.formatFieldErrors(fieldErrors);
-		super(400, 'Invalid request data', true, details);
+		super(HttpStatus.BAD_REQUEST, 'Invalid request data', true, details);
 	}
 
 	static formatFieldErrors(
@@ -45,13 +47,13 @@ export class ValidationError extends AppError {
 
 export class AuthError extends AppError {
 	constructor(message = 'Authentication failed') {
-		super(401, message);
+		super(HttpStatus.UNAUTHORIZED, message);
 	}
 }
 
 export class ForbiddenError extends AppError {
 	constructor(message = 'Forbidden access') {
-		super(403, message);
+		super(HttpStatus.FORBIDDEN, message);
 	}
 }
 
@@ -60,24 +62,24 @@ export class ConflictError extends AppError {
 		message = 'Resource already exists',
 		details?: Record<string, unknown>
 	) {
-		super(409, message, true, details);
+		super(HttpStatus.CONFLICT, message, true, details);
 	}
 }
 
 export class NotFoundError extends AppError {
 	constructor(message = 'Resource not found') {
-		super(404, message);
+		super(HttpStatus.NOT_FOUND, message);
 	}
 }
 
 export class RateLimitError extends AppError {
 	constructor(message = 'Too many requests, please try again later') {
-		super(429, message);
+		super(HttpStatus.TOO_MANY_REQUESTS, message);
 	}
 }
 
 export class DatabaseError extends AppError {
 	constructor(message = 'Database error', details?: Record<string, unknown>) {
-		super(500, message, true, details);
+		super(HttpStatus.INTERNAL_SERVER_ERROR, message, true, details);
 	}
 }

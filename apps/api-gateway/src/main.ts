@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService, ZodFilter } from '@repo/backend';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import { Logger } from 'nestjs-pino';
@@ -18,6 +19,31 @@ async function bootstrap() {
 
 	const configService = app.get(ConfigService);
 	const isProduction = configService.get('NODE_ENV') === 'production';
+
+	const config = new DocumentBuilder()
+		.setTitle('Hotel Booking API')
+		.setDescription('API Gateway for the hotel booking system')
+		.setVersion('1.0')
+		.addBearerAuth(
+			{
+				type: 'http',
+				scheme: 'bearer',
+				bearerFormat: 'JWT',
+			},
+			'access-token'
+		)
+		.addServer(
+			`http://localhost:${configService.get('GATEWAY_PORT')}`,
+			'Development'
+		)
+		.build();
+
+	const document = SwaggerModule.createDocument(app, config);
+	SwaggerModule.setup('api-docs', app, document, {
+		swaggerOptions: {
+			persistAuthorization: true,
+		},
+	});
 
 	app
 		.getHttpAdapter()
@@ -42,6 +68,7 @@ async function bootstrap() {
 	const server = await app.listen(port, host);
 
 	logger.log(`🚀 API Gateway listening at http://${host}:${port}`);
+	logger.log(`📚 API Documentation: http://${host}:${port}/api-docs`);
 	logger.log(`🌍 Environment: ${isProduction ? 'production' : 'development'}`);
 	logger.log(`🔗 CORS Origins: ${JSON.stringify(origin)}`);
 

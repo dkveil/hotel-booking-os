@@ -1,4 +1,4 @@
-import type { ArgumentsHost, ExceptionFilter, Logger } from '@nestjs/common';
+import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
 import { Catch } from '@nestjs/common';
 import { ZodError } from 'zod';
 import { handleError } from '../error-handler';

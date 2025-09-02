@@ -7,13 +7,14 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import type { User } from './users/entities';
+import type { HealthCheckResponse } from '@repo/types';
 
 @Controller('api')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
 	@Get('health')
-	getHealth() {
+	getHealth(): HealthCheckResponse {
 		return this.authService.getAuthHealth();
 	}
 

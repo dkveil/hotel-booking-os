@@ -43,6 +43,7 @@ import {
 } from './dto/update-reservation.dto';
 import { ReservationsService } from './reservations.service';
 import { UpdateReservationSchema } from './schema/reservation.schema';
+import type { HealthCheckResponse } from '@repo/types';
 
 @ApiTags('Reservations')
 @Controller('api')
@@ -51,7 +52,7 @@ export class ReservationsController {
 	constructor(private readonly reservationsService: ReservationsService) {}
 
 	@Get('health')
-	health() {
+	health(): HealthCheckResponse {
 		return this.reservationsService.getReservationsHealth();
 	}
 

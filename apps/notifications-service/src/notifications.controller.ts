@@ -1,6 +1,7 @@
 import { Controller, Get, UsePipes } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
 import { ZodPipe } from '@repo/backend';
+import type { HealthCheckResponse } from '@repo/types';
 
 import { NotifyEmailDto } from './dto';
 import { NotificationsService } from './notifications.service';
@@ -10,7 +11,7 @@ export class NotificationsController {
 	constructor(private readonly notificationsService: NotificationsService) {}
 
 	@Get('health')
-	health() {
+	health(): HealthCheckResponse {
 		return this.notificationsService.getNotificationsHealth();
 	}
 

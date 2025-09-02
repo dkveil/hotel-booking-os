@@ -28,6 +28,7 @@ import {
 	ReservationStatus,
 } from './entities';
 import { ReservationsRepository } from './reservations.repository';
+import type { HealthCheckResponse } from '@repo/types';
 
 @Injectable()
 export class ReservationsService {
@@ -39,7 +40,7 @@ export class ReservationsService {
 		private readonly notificationsService: ClientProxy
 	) {}
 
-	getReservationsHealth(): object {
+	getReservationsHealth(): HealthCheckResponse {
 		return {
 			status: 'healthy',
 			timestamp: new Date().toISOString(),
