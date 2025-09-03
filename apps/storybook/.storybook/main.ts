@@ -1,17 +1,20 @@
-import { resolve } from 'node:path';
+import { createRequire } from "node:module";
+import { resolve, dirname, join } from 'node:path';
+
+const require = createRequire(import.meta.url);
 
 const config = {
-	stories: ['../stories/*.stories.tsx', '../stories/**/*.stories.tsx'],
+    stories: ['../stories/*.stories.tsx', '../stories/**/*.stories.tsx'],
 
-	addons: [
-		'@storybook/addon-links',
-		'@storybook/addon-docs',
-		'@storybook/addon-styling-webpack',
-		'@storybook/addon-themes',
-		'@storybook/addon-onboarding',
-		'@chromatic-com/storybook',
+    addons: [
+		getAbsolutePath("@storybook/addon-links"),
+		getAbsolutePath("@storybook/addon-docs"),
+		getAbsolutePath("@storybook/addon-styling-webpack"),
+		getAbsolutePath("@storybook/addon-themes"),
+		getAbsolutePath("@storybook/addon-onboarding"),
+		getAbsolutePath("@chromatic-com/storybook"),
 		{
-			name: '@storybook/addon-postcss',
+			name: getAbsolutePath("@storybook/addon-postcss"),
 			options: {
 				postcssLoaderOptions: {
 					implementation: require('postcss'),
@@ -20,18 +23,14 @@ const config = {
 		},
 	],
 
-	framework: {
-		name: '@storybook/react-vite',
+    framework: {
+		name: getAbsolutePath("@storybook/react-vite"),
 		options: {},
 	},
 
-	core: {},
+    core: {},
 
-	docs: {
-		autodocs: 'tag',
-	},
-
-	async viteFinal(config, { _configType }) {
+    async viteFinal(config, { _configType }) {
 		return {
 			...config,
 			define: { 'process.env': {} },
@@ -44,7 +43,11 @@ const config = {
 				],
 			},
 		};
-	},
+	}
 };
 
 export default config;
+
+function getAbsolutePath(value: string): any {
+    return dirname(require.resolve(join(value, "package.json")));
+}
