@@ -1,15 +1,18 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { DM_Serif_Display, Lexend } from 'next/font/google';
 import './globals.css';
+import '@repo/tailwind-config';
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
+const dmSans = DM_Serif_Display({
+	variable: '--font-heading',
 	subsets: ['latin'],
+	weight: ['400'],
 });
 
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const lexend = Lexend({
+	variable: '--font-base',
 	subsets: ['latin'],
+	weight: ['300', '400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -24,7 +27,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${geistSans.variable} ${geistMono.variable}`}>
+			<body className={`${lexend.variable} ${dmSans.variable} font-base`}>
 				{children}
 			</body>
 		</html>
