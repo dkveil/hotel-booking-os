@@ -3,8 +3,8 @@ name: CI
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  # pull_request:
+  #   branches: [main]
 
 # Anuluj poprzednie buildy tej samej gałęzi
 concurrency:
