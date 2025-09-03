@@ -64,7 +64,7 @@ jobs:
     
     strategy:
       matrix:
-        app: [web, storybook]
+        app: [web, storybook, admin]
     
     steps:
       - name: Checkout
@@ -94,6 +94,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: pnpm run db:generate
 
       - name: Build ${{ matrix.app }}
         run: pnpm turbo build --filter=${{ matrix.app }}
