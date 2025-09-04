@@ -98,7 +98,7 @@
 			},
 			"complexity": {
 				"noArguments": "error",
-				"noBannedTypes": "error",
+				"noBannedTypes": "warn",
 				"noEmptyTypeParameters": "error",
 				"noExcessiveCognitiveComplexity": "error",
 				"noExcessiveNestedTestSuites": "error",

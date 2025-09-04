@@ -20,6 +20,14 @@
 		"./reservations": {
 			"types": "./dist/reservations/index.d.ts",
 			"default": "./dist/reservations/index.js"
+		},
+		"./payload": {
+			"types": "./dist/payload/index.d.ts",
+			"default": "./dist/payload/index.js"
+		},
+		"./payload/config": {
+			"types": "./dist/payload/config-types.d.ts",
+			"default": "./dist/payload/config-types.js"
 		}
 	},
 	"scripts": {
@@ -37,6 +45,14 @@
 	"devDependencies": {
 		"@repo/typescript-config": "workspace:*",
 		"typescript": "^5.7.3"
+	},
+	"peerDependencies": {
+		"payload": "^3.54.0"
+	},
+	"peerDependenciesMeta": {
+		"payload": {
+			"optional": true
+		}
 	},
 	"keywords": [
 		"types",

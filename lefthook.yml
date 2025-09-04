@@ -3,6 +3,9 @@ min_version: 1.9.0
 pre-commit:
   parallel: true
   commands:
+    sync-types:
+      run: pnpm run sync:payload-types
+      stage_fixed: true
     lint:
       glob: "*.{js,jsx,ts,tsx,json,md,yml,yaml}"
       run: pnpm turbo lint --filter="...[HEAD~1]"

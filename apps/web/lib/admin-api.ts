@@ -3,6 +3,7 @@ import {
 	createPaginatedDataFromPayload,
 	createSuccessResponse,
 	PayloadResponse,
+	PayloadTypes,
 } from '@repo/types';
 import { fetchHandler } from './handlers/fetch';
 
@@ -31,7 +32,11 @@ export class AdminAPI {
 		}
 	}
 
-	static async getAllRooms<T>(options?: RequestInit) {
-		return this.fetchPaginatedData<T>('/rooms', 'rooms', options);
+	static async getAllRooms(options?: RequestInit) {
+		return this.fetchPaginatedData<PayloadTypes.Room>(
+			'/rooms',
+			'rooms',
+			options
+		);
 	}
 }

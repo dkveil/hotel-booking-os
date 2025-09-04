@@ -10,7 +10,7 @@
 		"build": "next build",
 		"start": "next start",
 		"generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
-		"generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+		"generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && cd ../.. && pnpm run sync:payload-types",
 		"lint": "biome lint .",
 		"format": "biome format . --write",
 		"check": "biome check .",
