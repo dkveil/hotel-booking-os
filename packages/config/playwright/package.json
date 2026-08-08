@@ -16,7 +16,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
-	"packageManager": "pnpm@10.15.1",
+	"packageManager": "pnpm@10.34.5",
 	"dependencies": {
 		"@playwright/test": "^1.54.2"
 	},
